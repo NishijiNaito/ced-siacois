@@ -1,3 +1,7 @@
+<?php
+defined('BASEPATH') or exit('No direct script access allowed');
+?>
+
 <!-- Html Login -->
 <div class="row justify-content-center">
     <div class="col-sm-6">
