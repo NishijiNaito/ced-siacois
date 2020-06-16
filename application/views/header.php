@@ -11,6 +11,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>ระบบสารสนเทศนักศึกษาฝึกงานภาคฤดูร้อน / สหกิจศึกษา</title>
     <link rel="stylesheet" href="<?php echo base_url(); ?>/asset/css/bootstrap.min.css">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     
 </head>
 

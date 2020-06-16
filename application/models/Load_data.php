@@ -50,20 +50,25 @@ class Load_data extends CI_Model
         and student_end>=date(now())";
         return $this->db->query($sql)->result();
     }
-    function DateThai($strDate)
-    {
-        $strYear    =    date("Y", strtotime($strDate)) + 543;
-        $strMonth =    date("n", strtotime($strDate));
-        $strDay =    date("j", strtotime($strDate));
-        $strHour =    date("H", strtotime($strDate));
-        $strMinute =    date("i", strtotime($strDate));
-        $strSeconds =  date("s", strtotime($strDate));
-        $strMonthCut = array("", "ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.", "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค.");
-        $strMonthThai = $strMonthCut[$strMonth];
-        $strYearCut = substr($strYear, 2, 2); //เอา2ตัวท้ายของปี .พ.ศ. 
-        return "$strDay $strMonthThai $strYear";
-    } //end function DateThai
 
+    //end of main
+
+    function getemp($id)
+    {
+        $sql = "SELECT * from users where users_id = ?";
+        return $this->db->query($sql,array($id))->result();
+    }
+    function getuprs()
+    {
+        $sql = "SELECT users_id,users_name,users_role_name from upr";
+        return $this->db->query($sql)->result();
+    }
+    function getroles()
+    {
+        $sql = "SELECT * from users_role";
+        return $this->db->query($sql)->result();
+    }
+    
 }
 
 /* End of file load_data.php */
