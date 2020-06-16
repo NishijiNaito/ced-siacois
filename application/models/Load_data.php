@@ -56,7 +56,7 @@ class Load_data extends CI_Model
     function getemp($id)
     {
         $sql = "SELECT * from users where users_id = ?";
-        return $this->db->query($sql,array($id))->result();
+        return $this->db->query($sql, array($id))->result();
     }
     function getuprs()
     {
@@ -68,7 +68,55 @@ class Load_data extends CI_Model
         $sql = "SELECT * from users_role";
         return $this->db->query($sql)->result();
     }
-    
+
+    //end of Emp
+
+    function getallstds()
+    {
+        $sql = "SELECT * from student";
+        return $this->db->query($sql)->result();
+    }
+
+    //end of std
+
+    function getallunicols()
+    {
+        $sql = "SELECT * from unicol";
+        return $this->db->query($sql)->result();
+    }
+
+    function getallfacs()
+    {
+        $sql = "SELECT * from faculty";
+        return $this->db->query($sql)->result();
+    }
+
+    function getalldeps()
+    {
+        $sql = "SELECT * from department";
+        return $this->db->query($sql)->result();
+    }
+    // end of subdata
+
+
+
+
+
+
+
+
+
+
+    //Start of Student
+    function getdateofstudent($id, $date)
+    {
+        $sql = "SELECT student_Start,student_End
+        ,DATEDIFF(student_End, student_Start)+1 as dateall ,
+        DATEDIFF(student_End, now())+1 as dateremain 
+              from student where student_id = ? and student_Start=?";
+
+        return $this->db->query($sql, array($id,$date))->result();
+    }
 }
 
 /* End of file load_data.php */

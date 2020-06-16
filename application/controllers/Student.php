@@ -10,6 +10,9 @@ class Student extends CI_Controller
     {
         parent::__construct();
         //Do your magic here
+        $this->load->model('Load_data', 'ld');
+        $this->load->model('Add_data', 'ad');
+        $this->load->model('Useful', 'uf');
         $this->session;
         $this->_checkisstudent();
     }
@@ -28,6 +31,15 @@ class Student extends CI_Controller
 
     public function index()
     {
+        //$data['nav'] = array(array('Adminconsole', 'admin'), array('Project'));
+        $data['nav'] = array(array('Student'));
+        $std['date'] = $this->ld->getdateofstudent($_SESSION['user'], $_SESSION['date'])[0];
+        $this->load->view('header');
+        $this->load->view('html_head');
+        $this->load->view('html_address', $data);
+        $this->load->view('html_std_index', $std);
+
+        $this->load->view('bottom');
     }
 }
 
