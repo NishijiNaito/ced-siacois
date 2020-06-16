@@ -95,7 +95,7 @@ class Adminconsole extends CI_Controller
 
         if ($this->form_validation->run() == FALSE) { //if not input
           //echo "false";
-          redirect(".");
+          redirect("adminconsole/employee");
         } else { //if input
 
           // $realpass = md5($this->db->escape_like_str($pass));
@@ -108,7 +108,7 @@ class Adminconsole extends CI_Controller
             redirect("adminconsole/employee");
           } else { // false
 
-            $this->_error("เนื่องจากกรอก username ซ้ำ โปรดใช้ username อื่น โปรดรอ 3 วินาที","adminconsole/employee");
+            $this->_error("เนื่องจากกรอก username ซ้ำ โปรดใช้ username อื่น โปรดรอ 3 วินาที", "adminconsole/employee");
           }
         }
       } elseif ($mode == 'edit') { //add Emp
@@ -148,7 +148,7 @@ class Adminconsole extends CI_Controller
 
         if ($this->form_validation->run() == FALSE) { //if not input
           //echo "false";
-          redirect(".");
+          redirect("adminconsole/employee");
         } else { //if input
 
           // $realpass = md5($this->db->escape_like_str($pass));
@@ -182,6 +182,30 @@ class Adminconsole extends CI_Controller
       } else {
         redirect('adminconsole/Employee');
       }
+    }
+  }
+
+
+  public function student($mode = null, $id = null, $date = null)
+  {
+    if ($mode == null) {
+      $data['nav'] = array(array('Adminconsole', 'adminconsole'), array('Student'));
+
+      $std['stds'] = $this->ld->getallstds();
+      $std['unicols'] = $this->ld->getallunicols();
+      $std['facs'] = $this->ld->getallfacs();
+      $std['deps'] = $this->ld->getalldeps();
+
+      $this->load->view('header');
+      $this->load->view('html_head');
+      $this->load->view('script_std');
+
+      $this->load->view('html_address', $data);
+
+      $this->load->view('html_admin_std', $std);
+
+
+      $this->load->view('bottom');
     }
   }
 }
