@@ -23,6 +23,16 @@ class Add_data extends CI_Model {
     {
         return $this->db->delete('users', $data);
     }
+
+    public function add_leaves($data){
+        return $this->db->insert('leaves',$data);
+    }
+    function delete_leaves($data)
+    {
+        return $this->db->delete('leaves', $data);
+    }
+
+
     /*
     function add_detail_project($data)
     {

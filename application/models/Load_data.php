@@ -115,7 +115,30 @@ class Load_data extends CI_Model
         DATEDIFF(student_End, now())+1 as dateremain 
               from student where student_id = ? and student_Start=?";
 
-        return $this->db->query($sql, array($id,$date))->result();
+        return $this->db->query($sql, array($id, $date))->result();
+    }
+
+    function getstddatas($id, $date)
+    {
+        $sql = "SELECT * from student,faculty,department,UniCol 
+        where student_id=? and student_start =?
+        and student_start<=date(now()) 
+        and student_end>=date(now()) 
+        and student_Facuty=Faculty_id 
+        and Department_id=student_department 
+        and UniCol_id = student_UniCol";
+        return $this->db->query($sql, array($id, $date))->result();
+    }
+
+    function getleaverequest($id, $date)
+    {
+        $sql = "SELECT * from sumsaha.leaves where Leaves_std_id=? and Leaves_std_start=? order by Leaves_id desc";
+        return $this->db->query($sql, array($id, $date))->result();
+    }
+    function getleaveone($id, $date,$no)
+    {
+        $sql = "SELECT * from sumsaha.leaves where Leaves_std_id=? and Leaves_std_start=? and Leaves_id = ? order by Leaves_id desc";
+        return $this->db->query($sql, array($id, $date,$no))->result();
     }
 }
 
