@@ -23,6 +23,9 @@ class Welcome extends CI_Controller
 	{
 		$this->load->view('welcome_message');
 	}
+	public function data($s1 = null,$s2=null , $s3=null){
+		echo $s1." ".$s2." ".$s3;
+	}
 	public function hellopdf()
 	{
 		header('Cache-Control: no-cache');
