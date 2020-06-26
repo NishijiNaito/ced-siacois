@@ -15,11 +15,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                 สวัสดี , <?php echo $_SESSION['name']; ?>
                             </div>
                             <div class="col-sm-4 text-right">
-                                <form action="edit" method="POST">
+                                <form action="<?php echo base_url(); ?>edit" method="POST">
                                     <button type="submit" class="btn btn-primary">Edit Profile</button>
 
                                 </form>
-                                <form action="logout" method="POST">
+                                <form action="<?php echo base_url(); ?>logout" method="POST">
                                     <button type="submit" class="btn btn-primary">Logout</button>
 
                                 </form>

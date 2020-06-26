@@ -97,8 +97,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
                                                             <div class="form-group">
 
-                                                                <label for="uid">มหาวิทยาลัย / วิทยาลัย</label>
-                                                                <select class="form-control" name="uid" id="uid">
+                                                                <label for="ucid">มหาวิทยาลัย / วิทยาลัย</label>
+                                                                <select class="form-control" name="ucid" id="ucid">
                                                                     <?php
                                                                     foreach($unicols as $uc){
 
@@ -120,6 +120,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
                                                                 <label for="fid">คณะ</label>
                                                                 <select class="form-control" name="fid" id="fid">
+                                                                <option value="no" selected>ไม่มีคณะ (สำหรับวิทยาลัย)</option>
                                                                     <?php
 
                                                                     foreach($facs as $fac){
@@ -141,7 +142,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
                                                                 <label for="did">ภาควิชา</label>
                                                                 <select class="form-control" name="did" id="did">
-                                                                    <option value="no" selected>ไม่มีภาควิชา (สำหรับวิทยาลัย)</option>
+                                                                    
                                                                     <?php
 
                                                                     foreach($deps as $dep){

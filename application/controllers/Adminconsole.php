@@ -186,7 +186,7 @@ class Adminconsole extends CI_Controller
   }
 
 
-  public function student($mode = null, $id = null, $date = null)
+  public function student($mode = null, $id = null, $dat = null)
   {
     if ($mode == null) {
       $data['nav'] = array(array('Adminconsole', 'adminconsole'), array('Student'));
@@ -206,6 +206,162 @@ class Adminconsole extends CI_Controller
 
 
       $this->load->view('bottom');
+    } elseif ($mode == 'add') { //add Std
+
+      //for form validation
+      $this->load->library('form_validation');
+
+      $this->form_validation->set_rules('id', 'ID', 'required|trim');
+      $this->form_validation->set_rules('pwd', 'Password', 'required|trim');
+      $this->form_validation->set_rules('fns', 'frontName', 'required|trim');
+      $this->form_validation->set_rules('fnam', 'Firstname', 'required|trim');
+      $this->form_validation->set_rules('lnam', 'Lastname', 'required|trim');
+      $this->form_validation->set_rules('ucid', 'unicolid', 'required|trim');
+      $this->form_validation->set_rules('fid', 'Facultyid', 'required|trim');
+      $this->form_validation->set_rules('did', 'Departmentid', 'required|trim');
+      $this->form_validation->set_rules('yr', 'Year', 'required|trim');
+      $this->form_validation->set_rules('type', 'Type', 'required|trim');
+      $this->form_validation->set_rules('dates', 'datestart', 'required|trim');
+      $this->form_validation->set_rules('datee', 'dateend', 'required|trim');
+
+
+      if ($this->form_validation->run() == FALSE) { //if not input
+        //echo "false";
+        redirect("adminconsole/student");
+      } else { //if input
+
+        if (strtotime($_POST['dates']) > strtotime($_POST['datee'])) { // Date Error
+          $this->_error("เนื่องจากวันที่เริ่มต้น อยู่หลังวันที่สิ้นสุด โปรดรอ 3 วินาที", "adminconsole/student");
+        } else {
+
+
+          // $realpass = md5($this->db->escape_like_str($pass));
+          $data['student_id'] = $_POST['id'];
+          $data['student_Start'] = $_POST['dates'];
+          $data['student_password'] =  md5($this->db->escape_like_str($_POST['pwd']));
+          $data['student_FNS'] = $_POST['fns'];
+          $data['student_FName'] = $_POST['fnam'];
+          $data['student_LName'] = $_POST['lnam'];
+          $data['student_UniCol'] = $_POST['ucid'];
+          if ($_POST['fid'] != 'no') {
+            $data['student_faculty'] = $_POST['fid'];
+          }
+          $data['student_department'] = $_POST['did']; //depart
+          $data['student_Year'] = $_POST['yr'];
+          $data['student_type'] = $_POST['type'];
+          $data['student_End'] = $_POST['datee'];
+
+          if ($this->ad->add_student($data) == TRUE) { //True
+            redirect("adminconsole/student");
+          } else { // false
+
+            $this->_error("เนื่องจากกรอก ชื่อผู้ใช้ ซ้ำกัน โปรดใช้ ชื่อผู้ใช้ อื่น โปรดรอ 3 วินาที", "adminconsole/student");
+          }
+        }
+      }
+    } elseif ($mode == 'edit') { //edit Std
+      if ($id == null || $dat == null) {
+        redirect('adminconsole/student');
+      }
+
+      $data['nav'] = array(array('Adminconsole', 'adminconsole'), array('Student', 'adminconsole/Student'), array('Edit'));
+
+
+
+      if (count($this->ld->getstd($id, $dat)) == 0) {
+        redirect('adminconsole/student');
+      }
+
+      $std['stds'] = $this->ld->getstd($id, $dat)[0];
+      $std['unicols'] = $this->ld->getallunicols();
+      $std['facs'] = $this->ld->getallfacs();
+      $std['deps'] = $this->ld->getalldeps();
+
+      $this->load->view('header');
+      $this->load->view('html_head');
+
+
+      $this->load->view('html_address', $data);
+
+      $this->load->view('html_admin_std_edit', $std);
+
+      $this->load->view('bottom');
+    } elseif ($mode == 'save') {
+      //
+
+      //for form validation
+      $this->load->library('form_validation');
+
+      $this->form_validation->set_rules('id', 'ID', 'required|trim');
+      //$this->form_validation->set_rules('pwd', 'Password', 'required|trim');
+      $this->form_validation->set_rules('fns', 'frontName', 'required|trim');
+      $this->form_validation->set_rules('fnam', 'Firstname', 'required|trim');
+      $this->form_validation->set_rules('lnam', 'Lastname', 'required|trim');
+      $this->form_validation->set_rules('ucid', 'unicolid', 'required|trim');
+      $this->form_validation->set_rules('fid', 'Facultyid', 'required|trim');
+      $this->form_validation->set_rules('did', 'Departmentid', 'required|trim');
+      $this->form_validation->set_rules('yr', 'Year', 'required|trim');
+      $this->form_validation->set_rules('type', 'Type', 'required|trim');
+      $this->form_validation->set_rules('dates', 'datestart', 'required|trim');
+      $this->form_validation->set_rules('bdates', 'beforedatestart', 'required|trim');
+
+      $this->form_validation->set_rules('datee', 'dateend', 'required|trim');
+
+
+      if ($this->form_validation->run() == FALSE) { //if not input
+        //echo "false";
+        redirect("adminconsole/student");
+      } else { //if input
+
+        if (strtotime($_POST['dates']) > strtotime($_POST['datee'])) { // Date Error
+          $this->_error("เนื่องจากวันที่เริ่มต้น อยู่หลังวันที่สิ้นสุด โปรดรอ 3 วินาที", "adminconsole/student");
+        } else {
+
+
+          // $realpass = md5($this->db->escape_like_str($pass));
+          $data['student_id'] = $_POST['id'];
+
+          $data['student_Start'] = $_POST['dates'];
+          if (trim($_POST['pwd']) != "") {
+            $data['student_password'] =  md5($this->db->escape_like_str($_POST['pwd']));
+          }
+          $data['student_FNS'] = $_POST['fns'];
+          $data['student_FName'] = $_POST['fnam'];
+          $data['student_LName'] = $_POST['lnam'];
+          $data['student_UniCol'] = $_POST['ucid'];
+          if ($_POST['fid'] == 'no') {
+            $data['student_faculty'] = NULL;
+          }else{
+            $data['student_faculty'] = $_POST['fid'];
+          }
+          $data['student_department'] = $_POST['did']; //depart
+          $data['student_Year'] = $_POST['yr'];
+          $data['student_type'] = $_POST['type'];
+          $data['student_End'] = $_POST['datee'];
+
+          if ($this->ad->edit_student($data,$_POST['bdates']) == TRUE) { //True
+            redirect("adminconsole/student");
+          } else { // false
+
+            $this->_error("เนื่องจากกรอก ชื่อผู้ใช้ ซ้ำกัน โปรดใช้ ชื่อผู้ใช้ อื่น โปรดรอ 3 วินาที", "adminconsole/student");
+          }
+        }
+      }
+    } elseif ($mode == 'delete') {
+      if ($id == null || $dat == null) {
+        redirect("adminconsole/student");
+      }
+      $data['student_id'] = $id;
+      $data['student_Start'] = $dat;
+
+      if ($this->ad->delete_student($data) == TRUE) { //True
+
+        redirect("adminconsole/student");
+      } else { // false
+        echo "ErROR";
+      }
+    } else {
+      redirect('adminconsole/student');
     }
   }
 }

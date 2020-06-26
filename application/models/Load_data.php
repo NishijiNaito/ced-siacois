@@ -77,6 +77,10 @@ class Load_data extends CI_Model
         return $this->db->query($sql)->result();
     }
 
+    function getstd($id, $date){
+        $sql = "SELECT * from student where student_id = ? and student_Start=?";
+        return $this->db->query($sql, array($id,$date))->result();
+    }
     //end of std
 
     function getallunicols()
@@ -120,15 +124,18 @@ class Load_data extends CI_Model
 
     function getstddatas($id, $date)
     {
-        $sql = "SELECT * from student,faculty,department,UniCol 
+        $sql = "SELECT * from (student,department,UniCol) left join faculty on(student_Faculty=Faculty_id)
         where student_id=? and student_start =?
         and student_start<=date(now()) 
         and student_end>=date(now()) 
-        and student_Facuty=Faculty_id 
+        
         and Department_id=student_department 
         and UniCol_id = student_UniCol";
+        //and student_Faculty=Faculty_id 
         return $this->db->query($sql, array($id, $date))->result();
     }
+
+    
 
     function getleaverequest($id, $date)
     {

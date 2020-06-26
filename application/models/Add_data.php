@@ -32,6 +32,20 @@ class Add_data extends CI_Model {
         return $this->db->delete('leaves', $data);
     }
 
+    public function add_student($data){
+        return $this->db->insert('student',$data);
+    }
+
+    function edit_student($data,$bdate)
+    {
+      
+        return $this->db->update('student', $data, array('student_id' => $data['student_id'],'student_Start' => $bdate));
+    }
+    
+    function delete_student($data)
+    {
+        return $this->db->delete('student', $data);
+    }
 
     /*
     function add_detail_project($data)
