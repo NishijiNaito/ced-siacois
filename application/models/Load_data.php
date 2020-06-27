@@ -77,9 +77,10 @@ class Load_data extends CI_Model
         return $this->db->query($sql)->result();
     }
 
-    function getstd($id, $date){
+    function getstd($id, $date)
+    {
         $sql = "SELECT * from student where student_id = ? and student_Start=?";
-        return $this->db->query($sql, array($id,$date))->result();
+        return $this->db->query($sql, array($id, $date))->result();
     }
     //end of std
 
@@ -88,6 +89,11 @@ class Load_data extends CI_Model
         $sql = "SELECT * from unicol";
         return $this->db->query($sql)->result();
     }
+    function getunicol($id)
+    {
+        $sql = "SELECT * from unicol where unicol_id = ?";
+        return $this->db->query($sql, array($id))->result();
+    }
 
     function getallfacs()
     {
@@ -95,10 +101,22 @@ class Load_data extends CI_Model
         return $this->db->query($sql)->result();
     }
 
+    function getfac($id)
+    {
+        $sql = "SELECT * from faculty where faculty_id = ?";
+        return $this->db->query($sql, array($id))->result();
+    }
+
     function getalldeps()
     {
         $sql = "SELECT * from department";
         return $this->db->query($sql)->result();
+    }
+
+    function getdep($id)
+    {
+        $sql = "SELECT * from department where department_id = ?";
+        return $this->db->query($sql, array($id))->result();
     }
     // end of subdata
 
@@ -135,17 +153,17 @@ class Load_data extends CI_Model
         return $this->db->query($sql, array($id, $date))->result();
     }
 
-    
+
 
     function getleaverequest($id, $date)
     {
         $sql = "SELECT * from sumsaha.leaves where Leaves_std_id=? and Leaves_std_start=? order by Leaves_id desc";
         return $this->db->query($sql, array($id, $date))->result();
     }
-    function getleaveone($id, $date,$no)
+    function getleaveone($id, $date, $no)
     {
         $sql = "SELECT * from sumsaha.leaves where Leaves_std_id=? and Leaves_std_start=? and Leaves_id = ? order by Leaves_id desc";
-        return $this->db->query($sql, array($id, $date,$no))->result();
+        return $this->db->query($sql, array($id, $date, $no))->result();
     }
 }
 

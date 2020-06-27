@@ -331,7 +331,7 @@ class Adminconsole extends CI_Controller
           $data['student_UniCol'] = $_POST['ucid'];
           if ($_POST['fid'] == 'no') {
             $data['student_faculty'] = NULL;
-          }else{
+          } else {
             $data['student_faculty'] = $_POST['fid'];
           }
           $data['student_department'] = $_POST['did']; //depart
@@ -339,7 +339,7 @@ class Adminconsole extends CI_Controller
           $data['student_type'] = $_POST['type'];
           $data['student_End'] = $_POST['datee'];
 
-          if ($this->ad->edit_student($data,$_POST['bdates']) == TRUE) { //True
+          if ($this->ad->edit_student($data, $_POST['bdates']) == TRUE) { //True
             redirect("adminconsole/student");
           } else { // false
 
@@ -362,6 +362,40 @@ class Adminconsole extends CI_Controller
       }
     } else {
       redirect('adminconsole/student');
+    }
+  }
+
+  public function subdata($mode = null, $type = null, $id = null)
+  {
+    if ($mode == null) {
+
+
+      $data['nav'] = array(array('Adminconsole', 'adminconsole'), array('Subdata'));
+
+      //$std['stds'] = $this->ld->getallstds();
+      $std['unicols'] = $this->ld->getallunicols();
+      $std['facs'] = $this->ld->getallfacs();
+      $std['deps'] = $this->ld->getalldeps();
+
+      $this->load->view('header');
+      $this->load->view('html_head');
+      $this->load->view('script_std');
+
+      $this->load->view('html_address', $data);
+
+      //$this->load->view('html_admin_std', $std);
+
+
+      $this->load->view('bottom');
+    } elseif ($mode == "jsonload") {
+      header('Content-Type: application/json');
+
+      if ($type == null || $id == null) {
+        echo json_encode(array('status' => '0', 'message' => 'Error insert data!'));
+      } else {
+      }
+    } else {
+      redirect("adminconsole/subdata");
     }
   }
 }
