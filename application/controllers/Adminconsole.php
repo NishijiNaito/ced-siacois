@@ -373,30 +373,114 @@ class Adminconsole extends CI_Controller
       $data['nav'] = array(array('Adminconsole', 'adminconsole'), array('Subdata'));
 
       //$std['stds'] = $this->ld->getallstds();
-      $std['unicols'] = $this->ld->getallunicols();
-      $std['facs'] = $this->ld->getallfacs();
-      $std['deps'] = $this->ld->getalldeps();
+      $sub['unicols'] = $this->ld->getallunicols();
+      $sub['facs'] = $this->ld->getallfacs();
+      $sub['deps'] = $this->ld->getalldeps();
 
       $this->load->view('header');
       $this->load->view('html_head');
-      $this->load->view('script_std');
+      $this->load->view('script_sub');
 
       $this->load->view('html_address', $data);
 
-      //$this->load->view('html_admin_std', $std);
+      $this->load->view('html_admin_sub', $sub);
+
 
 
       $this->load->view('bottom');
     } elseif ($mode == "jsonload") {
       header('Content-Type: application/json');
 
-      if ($type == null || $id == null) {
+      if ($type == null || $id == null) { // type id
         echo json_encode(array('status' => '0', 'message' => 'Error insert data!'));
       } else {
+
+        if ($type == 1) { // university
+          $data = $this->ld->getunicol($id);
+          if (count($data) == 0) {
+            echo json_encode(array('status' => '0', 'message' => 'Error No data!'));
+          } else {
+            $arr = array(
+              'status' => '1',
+              'message' => 'comp',
+              "uname" => $data[0]->UniCol_name,
+              "uform" => $data[0]->UniCol_formtype,
+              "utype" => $data[0]->UniCol_type
+
+            );
+            echo json_encode($arr);
+          }
+        } else { // department
+          $data = $this->ld->getdep($id);
+          if (count($data) == 0) {
+            echo json_encode(array('status' => '0', 'message' => 'Error No data!'));
+          } else {
+            $arr = array(
+              'status' => '1',
+              'message' => 'comp',
+              "dname" => $data[0]->Department_name,
+              "dtype" => $data[0]->Department_type,
+
+            );
+            echo json_encode($arr);
+          }
+        }
       }
+    } elseif ($mode == "add") {
+      //for form validation
+      $this->load->library('form_validation');
+
+      $this->form_validation->set_rules('type', 'type', 'required|trim');
+      $this->form_validation->set_rules('fo01', 'name', 'required|trim');
+
+
+
+      if ($this->form_validation->run() == FALSE) { //if not input
+        //echo "false";
+        redirect("adminconsole/subdata");
+      } else { //if input
+
+        
+
+
+
+
+
+        // $realpass = md5($this->db->escape_like_str($pass));
+        //$data['student_id'] = $_POST['id'];
+        //$data['student_Start'] = $_POST['dates'];
+
+
+        /*
+        if ($this->ad->add_student($data) == TRUE) { //True
+          redirect("adminconsole/subdata");
+        } else { // false
+
+          $this->_error("เนื่องจากกรอก ชื่อผู้ใช้ ซ้ำกัน โปรดใช้ ชื่อผู้ใช้ อื่น โปรดรอ 3 วินาที", "adminconsole/subdata");
+        }
+        */
+      }
+    } elseif ($mode == "edit") {
+
+
+      //edit
+
+
+
+    } elseif ($mode == "delete") {
+
+
+      //delete
+
+
+
     } else {
       redirect("adminconsole/subdata");
     }
+  }
+
+  public function pdf($mode = null)
+  {
   }
 }
         //header('Content-Type: application/json');
