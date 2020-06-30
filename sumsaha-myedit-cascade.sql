@@ -69,7 +69,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `sumsaha`.`Department` (
   `Department_id` INT NOT NULL AUTO_INCREMENT,
   `Department_name` VARCHAR(100) NOT NULL,
-  `Dapartment_type` ENUM('uni','col') NOT NULL,
+  `Department_type` ENUM('uni','col') NOT NULL,
   PRIMARY KEY (`Department_id`))
 ENGINE = InnoDB;
 
@@ -84,7 +84,7 @@ CREATE TABLE IF NOT EXISTS `sumsaha`.`student` (
   `student_FName` VARCHAR(45) NOT NULL,
   `student_LName` VARCHAR(45) NOT NULL,
   `student_UniCol` INT NOT NULL,
-  `student_Facuty` INT NULL,
+  `student_Faculty` INT NULL,
   `student_department` INT NULL,
   `student_Year` INT(1) NULL,
   `student_type` ENUM('1', '2') NOT NULL,
@@ -97,7 +97,7 @@ CREATE TABLE IF NOT EXISTS `sumsaha`.`student` (
     ON DELETE cascade
     ON UPDATE cascade,
   CONSTRAINT `fac`
-    FOREIGN KEY (`student_Facuty`)
+    FOREIGN KEY (`student_Faculty`)
     REFERENCES `sumsaha`.`Faculty` (`Faculty_id`)
     ON DELETE cascade
     ON UPDATE cascade,
@@ -356,7 +356,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `sumsaha`;
-INSERT INTO `sumsaha`.`student` (`student_id`, `student_password`, `student_FNS`, `student_FName`, `student_LName`, `student_UniCol`, `student_Facuty`, `student_department`, `student_Year`, `student_type`, `student_Start`, `student_End`) VALUES ('6010210252', 'd8578edf8458ce06fbc5bb76a58c5ca4', 'นาย', 'สัณหวัชร', 'แก้วยะรัตน์', 1, 1, 1, 3, '1', '2019/10/17', '2019/12/17');
+INSERT INTO `sumsaha`.`student` (`student_id`, `student_password`, `student_FNS`, `student_FName`, `student_LName`, `student_UniCol`, `student_Faculty`, `student_department`, `student_Year`, `student_type`, `student_Start`, `student_End`) VALUES ('6010210252', 'd8578edf8458ce06fbc5bb76a58c5ca4', 'นาย', 'สัณหวัชร', 'แก้วยะรัตน์', 1, 1, 1, 3, '1', '2019/10/17', '2019/12/17');
 
 COMMIT;
 
