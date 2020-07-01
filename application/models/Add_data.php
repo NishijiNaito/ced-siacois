@@ -55,16 +55,6 @@ class Add_data extends CI_Model
     function add_subdata($type, $data)
     {
         if ($type == 1) {
-            return $this->db->update('UniCol', $data);
-        } elseif ($type == 2) {
-            return $this->db->update('Faculty', $data);
-        } else {
-            return $this->db->update('Department', $data);
-        }
-    }
-    function edit_subdata($type, $data)
-    {
-        if ($type == 1) {
             return $this->db->insert('UniCol', $data);
         } elseif ($type == 2) {
             return $this->db->insert('Faculty', $data);
@@ -72,6 +62,18 @@ class Add_data extends CI_Model
             return $this->db->insert('Department', $data);
         }
     }
+
+    function edit_subdata($type, $data, $id)
+    {
+        if ($type == 1) {
+            return $this->db->update('UniCol', $data, array('UniCol_id' => $id));
+        } elseif ($type == 2) {
+            return $this->db->update('Faculty', $data, array('Faculty_id' => $id));
+        } else {
+            return $this->db->update('Department', $data, array('Department_id' => $id));
+        }
+    }
+
     function delete_subdata($type, $data)
     {
         if ($type == 1) {

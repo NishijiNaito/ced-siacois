@@ -60,7 +60,7 @@ class Adminconsole extends CI_Controller
     $this->load->view('bottom');
   }
 
-  public function employee($mode = null, $id = null)
+  public function employee($mode = null, $id = null) //complete
   {
     if ($mode == null) { //Main Employee
 
@@ -81,112 +81,110 @@ class Adminconsole extends CI_Controller
 
 
       $this->load->view('bottom');
-    } else {
-      if ($mode == 'add') { //add Emp
+    } elseif ($mode == 'add') { //add Emp
 
-        //for form validation
-        $this->load->library('form_validation');
+      //for form validation
+      $this->load->library('form_validation');
 
-        $this->form_validation->set_rules('user', 'Username', 'required|trim');
-        $this->form_validation->set_rules('nam', 'Name', 'required|trim');
-        $this->form_validation->set_rules('pwd', 'Password', 'required|trim');
-        $this->form_validation->set_rules('role', 'Role', 'required');
+      $this->form_validation->set_rules('user', 'Username', 'required|trim');
+      $this->form_validation->set_rules('nam', 'Name', 'required|trim');
+      $this->form_validation->set_rules('pwd', 'Password', 'required|trim');
+      $this->form_validation->set_rules('role', 'Role', 'required');
 
 
-        if ($this->form_validation->run() == FALSE) { //if not input
-          //echo "false";
+      if ($this->form_validation->run() == FALSE) { //if not input
+        //echo "false";
+        redirect("adminconsole/employee");
+      } else { //if input
+
+        // $realpass = md5($this->db->escape_like_str($pass));
+        $data['users_name'] = $_POST['user'];
+        $data['users_Password'] =  md5($this->db->escape_like_str($_POST['pwd']));
+        $data['users_FLName'] = $_POST['nam'];
+        $data['users_role'] = $_POST['role'];
+
+        if ($this->ad->add_employee($data) == TRUE) { //True
           redirect("adminconsole/employee");
-        } else { //if input
+        } else { // false
 
-          // $realpass = md5($this->db->escape_like_str($pass));
-          $data['users_name'] = $_POST['user'];
+          $this->_error("เนื่องจากกรอก username ซ้ำ โปรดใช้ username อื่น โปรดรอ 3 วินาที", "adminconsole/employee");
+        }
+      }
+    } elseif ($mode == 'edit') { //add Emp
+      if ($id == null) {
+        redirect('adminconsole/Employee');
+      }
+      $data['nav'] = array(array('Adminconsole', 'adminconsole'), array('Employee', 'adminconsole/employee'), array('Edit'));
+
+      $emp['uprs'] = $this->ld->getemp($id);
+
+      if (count($emp['uprs']) == 0) {
+        redirect('adminconsole/Employee');
+      }
+      $emp['uprs'] = $this->ld->getemp($id)[0];
+      $emp['roles'] = $this->ld->getroles();
+
+
+      $this->load->view('header');
+      $this->load->view('html_head');
+
+
+      $this->load->view('html_address', $data);
+
+      $this->load->view('html_admin_emp_edit', $emp);
+
+      $this->load->view('bottom');
+    } elseif ($mode == 'save') {
+
+      //for form validation
+      $this->load->library('form_validation');
+
+      $this->form_validation->set_rules('user', 'Username', 'required|trim');
+      $this->form_validation->set_rules('nam', 'Name', 'required|trim');
+      //$this->form_validation->set_rules('pwd', 'Password', 'required|trim');
+      $this->form_validation->set_rules('role', 'Role', 'required');
+
+
+      if ($this->form_validation->run() == FALSE) { //if not input
+        //echo "false";
+        redirect("adminconsole/employee");
+      } else { //if input
+
+        // $realpass = md5($this->db->escape_like_str($pass));
+        $data['users_id'] = $_POST['uid'];
+        $data['users_name'] = $_POST['user'];
+
+        if (trim($_POST['pwd']) != "") {
           $data['users_Password'] =  md5($this->db->escape_like_str($_POST['pwd']));
-          $data['users_FLName'] = $_POST['nam'];
-          $data['users_role'] = $_POST['role'];
-
-          if ($this->ad->add_employee($data) == TRUE) { //True
-            redirect("adminconsole/employee");
-          } else { // false
-
-            $this->_error("เนื่องจากกรอก username ซ้ำ โปรดใช้ username อื่น โปรดรอ 3 วินาที", "adminconsole/employee");
-          }
         }
-      } elseif ($mode == 'edit') { //add Emp
-        if ($id == null) {
-          redirect('adminconsole/Employee');
-        }
-        $data['nav'] = array(array('Adminconsole', 'adminconsole'), array('Employee', 'adminconsole/employee'), array('Edit'));
 
-        $emp['uprs'] = $this->ld->getemp($id);
+        $data['users_FLName'] = $_POST['nam'];
+        $data['users_role'] = $_POST['role'];
 
-        if (count($emp['uprs']) == 0) {
-          redirect('adminconsole/Employee');
-        }
-        $emp['uprs'] = $this->ld->getemp($id)[0];
-        $emp['roles'] = $this->ld->getroles();
-
-
-        $this->load->view('header');
-        $this->load->view('html_head');
-
-
-        $this->load->view('html_address', $data);
-
-        $this->load->view('html_admin_emp_edit', $emp);
-
-        $this->load->view('bottom');
-      } elseif ($mode == 'save') {
-
-        //for form validation
-        $this->load->library('form_validation');
-
-        $this->form_validation->set_rules('user', 'Username', 'required|trim');
-        $this->form_validation->set_rules('nam', 'Name', 'required|trim');
-        //$this->form_validation->set_rules('pwd', 'Password', 'required|trim');
-        $this->form_validation->set_rules('role', 'Role', 'required');
-
-
-        if ($this->form_validation->run() == FALSE) { //if not input
-          //echo "false";
-          redirect("adminconsole/employee");
-        } else { //if input
-
-          // $realpass = md5($this->db->escape_like_str($pass));
-          $data['users_id'] = $_POST['uid'];
-          $data['users_name'] = $_POST['user'];
-
-          if (trim($_POST['pwd']) != "") {
-            $data['users_Password'] =  md5($this->db->escape_like_str($_POST['pwd']));
-          }
-
-          $data['users_FLName'] = $_POST['nam'];
-          $data['users_role'] = $_POST['role'];
-
-          if ($this->ad->edit_employee($data) == TRUE) { //True
-            redirect("adminconsole/employee");
-          } else { // false
-            echo "ErROR";
-          }
-        }
-      } elseif ($mode == 'delete') {
-        if ($id == null) {
-          redirect("adminconsole/employee");
-        }
-        $data['users_id'] = $id;
-
-        if ($this->ad->delete_employee($data) == TRUE) { //True
+        if ($this->ad->edit_employee($data) == TRUE) { //True
           redirect("adminconsole/employee");
         } else { // false
           echo "ErROR";
         }
-      } else {
-        redirect('adminconsole/Employee');
       }
+    } elseif ($mode == 'delete') {
+      if ($id == null) {
+        redirect("adminconsole/employee");
+      }
+      $data['users_id'] = $id;
+
+      if ($this->ad->delete_employee($data) == TRUE) { //True
+        redirect("adminconsole/employee");
+      } else { // false
+        echo "ErROR";
+      }
+    } else {
+      redirect('adminconsole/Employee');
     }
   }
 
 
-  public function student($mode = null, $id = null, $dat = null)
+  public function student($mode = null, $id = null, $dat = null) //complete
   {
     if ($mode == null) {
       $data['nav'] = array(array('Adminconsole', 'adminconsole'), array('Student'));
@@ -365,7 +363,7 @@ class Adminconsole extends CI_Controller
     }
   }
 
-  public function subdata($mode = null, $type = null, $id = null)
+  public function subdata($mode = null, $type = null, $id = null) //complete
   {
     if ($mode == null) {
 
@@ -426,7 +424,7 @@ class Adminconsole extends CI_Controller
           }
         }
       }
-    } elseif ($mode == "add") {
+    } elseif ($mode == "edit") {
       //for form validation
       $this->load->library('form_validation');
 
@@ -440,40 +438,119 @@ class Adminconsole extends CI_Controller
         redirect("adminconsole/subdata");
       } else { //if input
 
-        
+        $okay = false;
+        switch ($_POST['type']) {
+          case '1':
+            $data['UniCol_name'] = $_POST['fo01'];
+            $data['UniCol_formtype'] = $_POST['fotype'];
+            $data['UniCol_type'] = $_POST['uctype'];
+            $okay = $this->ad->edit_subdata(1, $data, $_POST['ucfdid']);
 
+            break;
+          case '2':
+            $data['Faculty_name'] = $_POST['fo01'];
+            $okay = $this->ad->edit_subdata(2, $data, $_POST['fid']);
+            break;
+          case '3':
+            $data['Department_name'] = $_POST['fo01'];
+            $data['Department_type'] = $_POST['dtype'];
+            $okay = $this->ad->edit_subdata(3, $data, $_POST['ucfdid']);
+            break;
+          default:
+            # code...
+            break;
+        }
 
-
-
-
-        // $realpass = md5($this->db->escape_like_str($pass));
-        //$data['student_id'] = $_POST['id'];
-        //$data['student_Start'] = $_POST['dates'];
-
-
-        /*
-        if ($this->ad->add_student($data) == TRUE) { //True
+        if ($okay) { //True
           redirect("adminconsole/subdata");
         } else { // false
 
-          $this->_error("เนื่องจากกรอก ชื่อผู้ใช้ ซ้ำกัน โปรดใช้ ชื่อผู้ใช้ อื่น โปรดรอ 3 วินาที", "adminconsole/subdata");
+          $this->_error("เนื่องจากเกิดข้อผิดพลาดทางเทคนิค โปรดติดต่อผู้ดูแล โปรดรอ 3 วินาที", "adminconsole/subdata");
         }
-        */
       }
-    } elseif ($mode == "edit") {
-
+    } elseif ($mode == "add") {
 
       //edit
+      //for form validation
+      $this->load->library('form_validation');
+
+      $this->form_validation->set_rules('type', 'type', 'required|trim');
+      $this->form_validation->set_rules('fo01', 'name', 'required|trim');
 
 
 
+      if ($this->form_validation->run() == FALSE) { //if not input
+        //echo "false";
+        redirect("adminconsole/subdata");
+      } else { //if input
+
+        $okay = false;
+        switch ($_POST['type']) {
+          case '1':
+            $data['UniCol_name'] = $_POST['fo01'];
+            $data['UniCol_formtype'] = $_POST['fotype'];
+            $data['UniCol_type'] = $_POST['uctype'];
+            $okay = $this->ad->add_subdata(1, $data);
+
+            break;
+          case '2':
+            $data['Faculty_name'] = $_POST['fo01'];
+            $okay = $this->ad->add_subdata(2, $data);
+            break;
+          case '3':
+            $data['Department_name'] = $_POST['fo01'];
+            $data['Department_type'] = $_POST['dtype'];
+            $okay = $this->ad->add_subdata(3, $data);
+            break;
+          default:
+            # code...
+            break;
+        }
+
+        if ($okay) { //True
+          redirect("adminconsole/subdata");
+        } else { // false
+
+          $this->_error("เนื่องจากเกิดข้อผิดพลาดทางเทคนิค โปรดติดต่อผู้ดูแล โปรดรอ 3 วินาที", "adminconsole/subdata");
+        }
+      }
     } elseif ($mode == "delete") {
-
-
       //delete
+      if ($type == null || $id == null) { // type id
+        redirect("adminconsole/subdata");
+      } else {
+        $okay = false;
 
+        switch ($type) {
+          case '1':
+            $data['UniCol_id'] = $id;
+            $okay = $this->ad->delete_subdata(1, $data);
 
+            break;
+          case '2':
+            # code...
+            $data['Faculty_id'] = $id;
+            $okay = $this->ad->delete_subdata(2, $data);
 
+            break;
+          case '3':
+            # code...
+            $data['Department_id'] = $id;
+            $okay = $this->ad->delete_subdata(3, $data);
+
+            break;
+          default:
+            # code...
+            break;
+        }
+
+        if ($okay) { //True
+          redirect("adminconsole/subdata");
+        } else { // false
+
+          $this->_error("เนื่องจากเกิดข้อผิดพลาดทางเทคนิค โปรดติดต่อผู้ดูแล โปรดรอ 3 วินาที", "adminconsole/subdata");
+        }
+      }
     } else {
       redirect("adminconsole/subdata");
     }

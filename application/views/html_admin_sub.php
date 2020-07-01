@@ -41,7 +41,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
                                         <!-- Toggle Modal -->
 
-                                        <button class="btn btn-success" type="button" data-toggle="modal" data-target="#modUni"> <i class="fa fa-plus" aria-hidden="true"></i> เพิ่ม</button>
+                                        <button class="btn btn-success" type="button" data-toggle="modal" data-target="#modUni"> <i class="fa fa-plus" aria-hidden="true"></i>
+                                            เพิ่ม</button>
                                         <button class="btn btn-warning" type="button" data-toggle="modal" data-target="#modUniE">แก้ไข</button>
 
                                     </h5>
@@ -54,7 +55,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                             <div class="modal-content">
 
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">เพิ่มมหาวิทยาลัย / วิทยาลัย</h5>
+                                                    <h5 class="modal-title" id="exampleModalLabel">เพิ่มมหาวิทยาลัย /
+                                                        วิทยาลัย</h5>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
@@ -76,7 +78,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                                         <div class="form-group">
                                                             <label for="Uni">ชื่อ</label>
                                                             <input type="text" name="fo01" id="Uni" class="form-control" placeholder="มหาวิทยาลัย" aria-describedby="helpUni" required>
-                                                            <small id="helpUni" class="text-muted">ไม่ต้องใส่คำว่า "มหาวิทยาลัย / วิทยาลัย"</small>
+                                                            <small id="helpUni" class="text-muted">ไม่ต้องใส่คำว่า
+                                                                "มหาวิทยาลัย / วิทยาลัย"</small>
                                                         </div>
 
                                                         <div class="form-group">
@@ -190,7 +193,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                             echo $unicol->UniCol_name;
                                             echo "','";
                                             echo  $unicol->UniCol_type;
-                                            echo"');\">";
+                                            echo "');\">";
                                             echo $unicol->UniCol_name;
                                             echo "</div>";
                                         }
@@ -216,7 +219,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
                                         <!-- Toggle Modal -->
 
-                                        <button class="btn btn-success" type="button" data-toggle="modal" data-target="#modFac"> <i class="fa fa-plus" aria-hidden="true"></i> เพิ่ม</button>
+                                        <button class="btn btn-success" type="button" data-toggle="modal" data-target="#modFac"> <i class="fa fa-plus" aria-hidden="true"></i>
+                                            เพิ่ม</button>
 
                                         <button class="btn btn-warning" type="button" data-toggle="modal" data-target="#modFacE">แก้ไข</button>
 
@@ -245,7 +249,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                                         <div class="form-group">
                                                             <label for="Uni">คณะ</label>
                                                             <input type="text" name="fo01" id="Uni" class="form-control" placeholder="คณะ" aria-describedby="helpUni" required>
-                                                            <small id="helpUni" class="text-muted">ไม่ต้องใส่คำว่า "คณะ"</small>
+                                                            <small id="helpUni" class="text-muted">ไม่ต้องใส่คำว่า
+                                                                "คณะ"</small>
                                                         </div>
 
                                                         <button type="submit" class="btn btn-success">เพิ่ม</button>
@@ -280,8 +285,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                                         <input type="hidden" name="type" value="2">
                                                         <div class="form-group">
 
-                                                            <label for="uid">ชื่อคณะเดิม</label>
-                                                            <select class="form-control" name="uid" id="uid">
+                                                            <label for="fid">ชื่อคณะเดิม</label>
+                                                            <select class="form-control" name="fid" id="fid">
                                                                 <?php
 
                                                                 foreach ($facs as $fac) {
@@ -338,8 +343,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                             echo $fac->Faculty_name;
 
                                             echo "','none";
-                                            
-                                            echo"');\">";
+
+                                            echo "');\">";
                                             echo $fac->Faculty_name;
 
                                             echo "</div>";
@@ -369,7 +374,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
                                         <!-- Toggle Modal -->
 
-                                        <button class="btn btn-success" type="button" data-toggle="modal" data-target="#modDep"> <i class="fa fa-plus" aria-hidden="true"></i> เพิ่ม</button>
+                                        <button class="btn btn-success" type="button" data-toggle="modal" data-target="#modDep"> <i class="fa fa-plus" aria-hidden="true"></i>
+                                            เพิ่ม</button>
 
                                         <button class="btn btn-warning" type="button" data-toggle="modal" data-target="#modDepE">แก้ไข</button>
 
@@ -398,7 +404,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                                         <div class="form-group">
                                                             <label for="Uni">ภาควิชา</label>
                                                             <input type="text" name="fo01" id="Uni" class="form-control" placeholder="ภาควิชา" aria-describedby="helpUni" required>
-                                                            <small id="helpUni" class="text-muted">ไม่ต้องใส่คำว่า "ภาควิชา"</small>
+                                                            <small id="helpUni" class="text-muted">ไม่ต้องใส่คำว่า
+                                                                "ภาควิชา"</small>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="dtype">ประเภท</label>
@@ -436,7 +443,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
                                                 <div class="modal-body">
                                                     <form method="post" action="<?php echo base_url(); ?>adminconsole/subdata/edit">
-                                                        <input type="hidden" id = "idtype" name="type" value="3">
+                                                        <input type="hidden" id="idtype" name="type" value="3">
                                                         <div class="form-group">
 
                                                             <label for="idid">ชื่อภาควิชาเดิม</label>
@@ -509,12 +516,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                             echo ",'";
                                             echo $dep->Department_name;
                                             echo "','none";
-                                            
-                                            echo"');\">";
+
+                                            echo "');\">";
                                             echo $dep->Department_name;
                                             echo "</div>";
                                         }
-                                        
+
 
                                         ?>
 
