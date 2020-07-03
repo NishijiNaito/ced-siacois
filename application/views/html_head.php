@@ -1,8 +1,9 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 ?>
+<!-- Html Head -->
 <div class="container-fluid">
-    <!-- Html Head -->
+
     <div class="row justify-content-center">
         <div class="col-md-11">
             <div class="jumbotron jumbotron-fluid" style="background-color: #66ff66;">
