@@ -165,6 +165,18 @@ class Load_data extends CI_Model
         $sql = "SELECT * from sumsaha.leaves where Leaves_std_id=? and Leaves_std_start=? and Leaves_id = ? order by Leaves_id desc";
         return $this->db->query($sql, array($id, $date, $no))->result();
     }
+
+    //Start form
+
+    function getallformaccept(){
+        $sql = "SELECT * from (form_accept,department,UniCol) left join faculty on(form_fac=Faculty_id)
+        where 
+        Department_id=form_dep 
+        and UniCol_id = form_unicol";
+        //and student_Faculty=Faculty_id 
+        return $this->db->query($sql)->result();
+    }
+
 }
 
 /* End of file load_data.php */

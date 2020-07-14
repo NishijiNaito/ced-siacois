@@ -556,8 +556,56 @@ class Adminconsole extends CI_Controller
     }
   }
 
-  public function pdf($mode = null)
+  public function pdf($mode = null, $type = null, $id = null)
   {
+    if ($mode == null) { // index pdf
+
+
+      $data['nav'] = array(array('Adminconsole', 'adminconsole'), array('PDF'));
+
+      //$std['stds'] = $this->ld->getallstds();
+      //$sub['unicols'] = $this->ld->getallunicols();
+      //$sub['facs'] = $this->ld->getallfacs();
+      //$sub['deps'] = $this->ld->getalldeps();
+
+      $this->load->view('header');
+      $this->load->view('html_head');
+      //$this->load->view('script_sub');
+
+      $this->load->view('html_address', $data);
+
+      $this->load->view('html_admin_pdf');
+
+
+
+      $this->load->view('bottom');
+    } elseif ($mode == "accept") { // pdf accept
+      if ($type == null) {
+        $data['nav'] = array(array('Adminconsole', 'adminconsole'), array('PDF', 'adminconsole/pdf'), array('accept'));
+
+        //$std['stds'] = $this->ld->getallstds();
+        //$sub['unicols'] = $this->ld->getallunicols();
+        //$sub['facs'] = $this->ld->getallfacs();
+        //$sub['deps'] = $this->ld->getalldeps();
+        $pdf['forms'] = $this->ld->getallformaccept();
+
+        $this->load->view('header');
+        $this->load->view('html_head');
+        $this->load->view('script_pdf');
+
+        $this->load->view('html_address', $data);
+
+        $this->load->view('html_admin_pdf_accept',$pdf);
+
+
+
+        $this->load->view('bottom');
+      } else {
+        redirect("adminconsole/pdf/accept");
+      }
+    } else { // other not in mode go to index mode
+      redirect("adminconsole/pdf");
+    }
   }
 }
         //header('Content-Type: application/json');
