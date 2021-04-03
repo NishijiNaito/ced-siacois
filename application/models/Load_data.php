@@ -176,6 +176,7 @@ class Load_data extends CI_Model
         //and student_Faculty=Faculty_id 
         return $this->db->query($sql)->result();
     }
+    
 
 }
 

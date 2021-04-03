@@ -595,7 +595,7 @@ class Adminconsole extends CI_Controller
 
         $this->load->view('html_address', $data);
 
-        $this->load->view('html_admin_pdf_accept',$pdf);
+        $this->load->view('html_admin_pdf_accept', $pdf);
 
 
 
