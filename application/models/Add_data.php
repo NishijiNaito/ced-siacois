@@ -21,6 +21,11 @@ class Add_data extends CI_Model
         return $this->db->update('users', $data, array('users_id' => $data['users_id']));
     }
 
+    function edit_employee_by_username($data)
+    {
+        return $this->db->update('users', $data, array('users_name' => $data['users_name']));
+    }
+
     function delete_employee($data)
     {
         return $this->db->delete('users', $data);
