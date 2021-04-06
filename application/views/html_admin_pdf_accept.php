@@ -79,7 +79,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 
                                                                     <p>มหาวิทยาลัย : <?php echo $form->UniCol_name; ?></p>
-                                                                    <p>คณะ : <?php echo $form->Faculty_id; ?></p>
+                                                                    <p>คณะ : <?php echo $form->Faculty_name; ?></p>
                                                                     <p>ภาควิชา : <?php echo $form->Department_name; ?></p>
                                                                     <p>อ้างอิง : <?php echo $form->form_ref; ?></p>
                                                                     <p>ประเภทฝึกงาน : <?php echo ($form->form_type == 1 ? 'ประสบการณ์วิชาชีพ' : 'สหกิจศึกษา'); ?></p>
