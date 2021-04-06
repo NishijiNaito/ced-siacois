@@ -65,7 +65,7 @@ class Student extends CI_Controller
             $this->load->view('html_std_leave', $std);
 
             $this->load->view('bottom');
-        } elseif ($mode == 'add') { //add Emp
+        } elseif ($mode == 'add') { //add leaves
 
             //for form validation
             $this->load->library('form_validation');
