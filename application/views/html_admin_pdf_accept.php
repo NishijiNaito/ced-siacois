@@ -87,7 +87,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                                                     <p>วันที่สิ้นสุด : <?php echo $this->uf->DateThai($form->form_end); ?></p>
                                                                     <p>จำนวน : <?php echo $form->form_amo; ?></p>
 
-                                                                    <form method="post" action="<?php echo current_url(); ?>/form">
+                                                                    <form method="post" action="<?php echo base_url(); ?>adminpdf/accept">
                                                                         <input type="hidden" name="id" value="<?php echo $form->form_id; ?>">
                                                                         <button type="submit" class="btn btn-success">สร้างเอกสาร</button>
                                                                     </form>

@@ -110,7 +110,7 @@ class Adminconsole extends CI_Controller
           $this->_error("เนื่องจากกรอก username ซ้ำ โปรดใช้ username อื่น โปรดรอ 3 วินาที", "adminconsole/employee");
         }
       }
-    } elseif ($mode == 'edit') { //add Emp
+    } elseif ($mode == 'edit') { //edit Emp
       if ($id == null) {
         redirect('adminconsole/Employee');
       }
@@ -134,7 +134,7 @@ class Adminconsole extends CI_Controller
       $this->load->view('html_admin_emp_edit', $emp);
 
       $this->load->view('bottom');
-    } elseif ($mode == 'save') {
+    } elseif ($mode == 'save') { //save
 
       //for form validation
       $this->load->library('form_validation');
@@ -167,7 +167,7 @@ class Adminconsole extends CI_Controller
           echo "ErROR";
         }
       }
-    } elseif ($mode == 'delete') {
+    } elseif ($mode == 'delete') {//delete
       if ($id == null) {
         redirect("adminconsole/employee");
       }
@@ -178,7 +178,7 @@ class Adminconsole extends CI_Controller
       } else { // false
         echo "ErROR";
       }
-    } else {
+    } else {//other case
       redirect('adminconsole/Employee');
     }
   }
@@ -186,7 +186,7 @@ class Adminconsole extends CI_Controller
 
   public function student($mode = null, $id = null, $dat = null) //complete
   {
-    if ($mode == null) {
+    if ($mode == null) { // std - index
       $data['nav'] = array(array('Adminconsole', 'adminconsole'), array('Student'));
 
       $std['stds'] = $this->ld->getallstds();
@@ -204,7 +204,7 @@ class Adminconsole extends CI_Controller
 
 
       $this->load->view('bottom');
-    } elseif ($mode == 'add') { //add Std
+    } elseif ($mode == 'add') { // std - add
 
       //for form validation
       $this->load->library('form_validation');
@@ -257,7 +257,7 @@ class Adminconsole extends CI_Controller
           }
         }
       }
-    } elseif ($mode == 'edit') { //edit Std
+    } elseif ($mode == 'edit') { //// std - edit
       if ($id == null || $dat == null) {
         redirect('adminconsole/student');
       }
@@ -284,7 +284,7 @@ class Adminconsole extends CI_Controller
       $this->load->view('html_admin_std_edit', $std);
 
       $this->load->view('bottom');
-    } elseif ($mode == 'save') {
+    } elseif ($mode == 'save') {// std - save
       //
 
       //for form validation
@@ -345,7 +345,7 @@ class Adminconsole extends CI_Controller
           }
         }
       }
-    } elseif ($mode == 'delete') {
+    } elseif ($mode == 'delete') {// std - delete
       if ($id == null || $dat == null) {
         redirect("adminconsole/student");
       }
@@ -358,14 +358,14 @@ class Adminconsole extends CI_Controller
       } else { // false
         echo "ErROR";
       }
-    } else {
+    } else { //std - other case
       redirect('adminconsole/student');
     }
   }
 
   public function subdata($mode = null, $type = null, $id = null) //complete
   {
-    if ($mode == null) {
+    if ($mode == null) { //Subdata - Index
 
 
       $data['nav'] = array(array('Adminconsole', 'adminconsole'), array('Subdata'));
@@ -386,7 +386,7 @@ class Adminconsole extends CI_Controller
 
 
       $this->load->view('bottom');
-    } elseif ($mode == "jsonload") {
+    } elseif ($mode == "jsonload") { //Subdata - Jsonload
       header('Content-Type: application/json');
 
       if ($type == null || $id == null) { // type id
@@ -424,7 +424,7 @@ class Adminconsole extends CI_Controller
           }
         }
       }
-    } elseif ($mode == "edit") {
+    } elseif ($mode == "edit") { //Subdata - Edit
       //for form validation
       $this->load->library('form_validation');
 
@@ -580,14 +580,14 @@ class Adminconsole extends CI_Controller
 
       $this->load->view('bottom');
     } elseif ($mode == "accept") { // pdf accept
-      if ($type == null) {
+      if ($type == null) { // accept - Index
         $data['nav'] = array(array('Adminconsole', 'adminconsole'), array('PDF', 'adminconsole/pdf'), array('accept'));
 
         //$std['stds'] = $this->ld->getallstds();
         //$sub['unicols'] = $this->ld->getallunicols();
         //$sub['facs'] = $this->ld->getallfacs();
         //$sub['deps'] = $this->ld->getalldeps();
-        $pdf['forms'] = $this->ld->getallformaccept();
+        $pdf['forms'] = $this->ld->getallformaccept_all();
 
         $this->load->view('header');
         $this->load->view('html_head');
@@ -600,7 +600,125 @@ class Adminconsole extends CI_Controller
 
 
         $this->load->view('bottom');
-      } else {
+      } else if ($type === "add") { // accept - Add
+        $data['nav'] = array(array('Adminconsole', 'adminconsole'), array('PDF', 'adminconsole/pdf'), array('accept', 'adminconsole/pdf/accept'), array('Add'));
+
+        //$std['stds'] = $this->ld->getallstds();
+        $sub['unicols'] = $this->ld->getallunicols();
+        $sub['facs'] = $this->ld->getallfacs();
+        $sub['deps'] = $this->ld->getalldeps();
+        $this->load->view('header');
+        $this->load->view('html_head');
+        $this->load->view('html_address', $data);
+        $this->load->view('html_admin_pdf_accept_add', $sub);
+        $this->load->view('bottom');
+      } else if ($type === "saveadd") { // accept - SaveAdd
+
+        $this->load->library('form_validation');
+
+        $this->form_validation->set_rules('uid', 'UniCol', 'required|trim');
+        $this->form_validation->set_rules('fid', 'Faculty', 'required|trim');
+        if ($this->form_validation->run() == FALSE) { //if not input
+          redirect("adminconsole/pdf/accept");
+        }
+
+        //$_POST['uid'], $_POST['fid'], $_POST['did']
+        //$_POST['ref'], $_POST['dates'], $_POST['datee']
+        //$_POST['amount'], $_POST['type']
+        $data['form_unicol'] = $_POST['uid'];
+        $data['form_fac'] = $_POST['fid'];
+        $data['form_dep'] = $_POST['did'];
+
+        $data['form_ref'] = $_POST['ref'];
+        $data['form_start'] = $_POST['dates'];
+        $data['form_end'] = $_POST['datee'];
+
+        $data['form_amo'] = $_POST['amount'];
+        $data['form_type'] = $_POST['type'];
+
+
+        if ($this->ad->add_form_accept($data) == TRUE) { //True
+          redirect("adminconsole/pdf/accept");
+        } else { // false
+
+          $this->_error("เกิดข้อผิดพลาด โปรดรอ 3 วินาที", "adminconsole/pdf/accept");
+        }
+      } else if ($type === "edit") { // accept - Edit
+        if ($id == null) {
+          redirect('adminconsole/pdf/accept');
+        }
+
+        $data['nav'] = array(
+          array('Adminconsole', 'adminconsole'), array('PDF', 'adminconsole/pdf'),
+          array('accept', 'adminconsole/pdf/accept'), array('Edit - ' . $id)
+        );
+
+
+        $temp = $this->ld->getallformaccept_one($id);
+
+        if (count($temp) != 1) {
+          redirect('adminconsole/pdf/accept');
+        }
+
+        $sub['form'] = $temp[0];
+
+
+
+        $sub['unicols'] = $this->ld->getallunicols();
+        $sub['facs'] = $this->ld->getallfacs();
+        $sub['deps'] = $this->ld->getalldeps();
+
+
+        $this->load->view('header');
+        $this->load->view('html_head');
+        $this->load->view('html_address', $data);
+
+        $this->load->view('html_admin_pdf_accept_edit', $sub);
+
+
+        $this->load->view('bottom');
+      } else if ($type === "saveedit") { // accept - SaveEdit
+        $this->load->library('form_validation');
+
+        $this->form_validation->set_rules('uid', 'UniCol', 'required|trim');
+        $this->form_validation->set_rules('fid', 'Faculty', 'required|trim');
+        if ($this->form_validation->run() == FALSE) { //if not input
+          redirect("adminconsole/pdf/accept");
+        }
+
+        //$_POST['uid'], $_POST['fid'], $_POST['did']
+        //$_POST['ref'], $_POST['dates'], $_POST['datee']
+        //$_POST['amount'], $_POST['type']
+        $data['form_id'] = $_POST['id'];
+        $data['form_unicol'] = $_POST['uid'];
+        $data['form_fac'] = $_POST['fid'];
+        $data['form_dep'] = $_POST['did'];
+
+        $data['form_ref'] = $_POST['ref'];
+        $data['form_start'] = $_POST['dates'];
+        $data['form_end'] = $_POST['datee'];
+
+        $data['form_amo'] = $_POST['amount'];
+        $data['form_type'] = $_POST['type'];
+
+
+        if ($this->ad->edit_form_accept($data) == TRUE) { //True
+          redirect("adminconsole/pdf/accept");
+        } else { // false
+          $this->_error("เกิดข้อผิดพลาด โปรดรอ 3 วินาที", "adminconsole/pdf/accept");
+        }
+      } else if ($type === "delete"){ // accept - delete
+        if ($id == null) { //have id
+          redirect("adminconsole/pdf/accept");
+        }
+        $data['form_id'] = $id;
+        if ($this->ad->delete_form_accept($data) == TRUE) { //True
+          redirect("adminconsole/pdf/accept");
+        } else { // false
+          echo "ErROR";
+        }
+      }
+      else { // accept - Other Case
         redirect("adminconsole/pdf/accept");
       }
     } else { // other not in mode go to index mode

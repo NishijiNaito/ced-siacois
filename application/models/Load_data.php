@@ -168,13 +168,21 @@ class Load_data extends CI_Model
 
     //Start form
 
-    function getallformaccept(){
+    function getallformaccept_all(){
         $sql = "SELECT * from (form_accept,department,UniCol) left join faculty on(form_fac=Faculty_id)
         where 
         Department_id=form_dep 
         and UniCol_id = form_unicol";
         //and student_Faculty=Faculty_id 
         return $this->db->query($sql)->result();
+    }
+    function getallformaccept_one($id){
+        $sql = "SELECT * from (form_accept,department,UniCol) left join faculty on(form_fac=Faculty_id)
+        where 
+        Department_id=form_dep 
+        and UniCol_id = form_unicol and form_id = ?";
+        //and student_Faculty=Faculty_id 
+        return $this->db->query($sql,array($id))->result();
     }
     
 

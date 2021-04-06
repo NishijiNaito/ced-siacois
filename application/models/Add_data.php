@@ -90,6 +90,19 @@ class Add_data extends CI_Model
         }
     }
 
+
+    function add_form_accept($data)
+    {
+        return $this->db->insert('form_accept', $data);
+    }
+    function edit_form_accept($data)
+    {
+        return $this->db->update('form_accept', $data, array('form_id' => $data['form_id']));
+    }
+    function delete_form_accept($data)
+    {
+        return $this->db->delete('form_accept', $data);
+    }
     /*
     function add_detail_project($data)
     {
