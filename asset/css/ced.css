@@ -1,0 +1,28 @@
+html {
+    background: url("../pic/03.jpeg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+body {
+    background: url("../pic/03.jpeg") no-repeat center center fixed;
+    display: block;
+    position: relative;
+    margin: 0 auto;
+    background-size: cover;
+    z-index: 0;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+}
+
+.footer {
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: white;
+    color: black;
+    text-align: center;
+}
