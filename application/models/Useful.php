@@ -19,7 +19,7 @@ class Useful extends CI_Model
         return "$strDay $strMonthThai $strYear";
     } //end function DateThai
     
-    function thai_date(){
+    function thai_date($strDate){
         $original_date = date("d");
         $original_wday = date("l");
         $original_month = date("F");
@@ -29,9 +29,9 @@ class Useful extends CI_Model
         $TH_Month = array("มกราคม","กุมภาพันธ์","มีนาคม","เมษายน","พฤษภาคม","มิถุนายน","กรกฏาคม","สิงหาคม","กันยายน","ตุลาคม","พฤศจิกายน","ธันวาคม");
     
         $nDay = date("w");
-        $nMonth = date("n")-1;
-        $date = date("j");
-        $year = date("Y")+543;
+        $nMonth = date("n", strtotime($strDate))-1;
+        $date = date("j", strtotime($strDate));
+        $year = date("Y", strtotime($strDate))+543;
     
         return $date." ".$TH_Month[$nMonth]." ".$year;
     
