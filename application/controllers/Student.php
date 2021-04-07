@@ -163,7 +163,7 @@ class Student extends CI_Controller
 
 
             $pdf->SetFont('thsarabun', '', 17);
-            $pdf->Text(100, 60, $this->uf->thai_date());
+            $pdf->Text(100, 60, $this->uf->thai_date(date("Y-m-d")));
             //--------------------------------------------
             $pdf->SetFont('thsarabun', '', 17);
             $pdf->Text(23, 70, 'เรื่อง');
@@ -183,16 +183,16 @@ class Student extends CI_Controller
             $pdf->SetFont('thsarabun', '', 16);
             //$pdf->MultiCell(164, 20, "             " . $strs, 0,'L' );
             $pdf->writeHTML($html, true, false, true, false, '');
-            $pdf->Ln(5);
+            $pdf->Ln(15);
 
-            $pdf->MultiCell(164, 10, '                        จึงเรียนมาเพื่อโปรดทราบ');
+            $pdf->MultiCell(130, 10, '                        จึงเรียนมาเพื่อโปรดทราบ');
 
             //$pdf->MultiCell(164,10,$this->uf->co($pdf->getX().'/'.$pdf->getY()));
             //$pdf->MultiCell(164,10,$this->uf->co($pdf->getX().'/'.$pdf->getY()));
             //--------------------------------
 
             $pdf->SetFont('thsarabun', '', 17);
-            $pdf->Text(110, $pdf->getY() + 30, '(' . $stddata ->student_FNS . $stddata ->student_FName. ' ' .$stddata ->student_LName. ')');
+            $pdf->Text(110, $pdf->getY() + 20, '(' . $stddata ->student_FNS . $stddata ->student_FName. ' ' .$stddata ->student_LName. ')');
             $pdf->setY($pdf->getY() + 5);
             $pdf->Text(115, $pdf->getY() + 10, "นักศึกษาฝึก" . (($stddata ->student_type == 1) ? "งานฤดูร้อน" : "สหกิจศึกษา"));
             $pdf->setY($pdf->getY() + 10);
