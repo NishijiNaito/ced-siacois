@@ -202,6 +202,24 @@ class Load_data extends CI_Model
         return $this->db->query($sql,array($id))->result();
     }
 
+    function getallformcerti_all(){
+        $sql = "SELECT student_id,student_FNS,student_FName,student_LName,student_type,student_Start,DATEDIFF(student_End, now())+1 as dd,UniCol_name,Department_name,Faculty_name,UniCol_type from (student,department,UniCol) left join faculty on(Student_Faculty=Faculty_id)
+        where 
+        Department_id=Student_Department 
+        and UniCol_id = Student_UniCol";
+        //and student_Faculty=Faculty_id 
+        return $this->db->query($sql)->result();
+    }
+
+    function getallformcerti_one($id, $date){
+        $sql = "SELECT student_id,student_FNS,student_FName,student_LName,student_type,student_Start,student_End,DATEDIFF(student_End, now())+1 as dd,UniCol_name,Department_name,Faculty_name,UniCol_type from (student,department,UniCol) left join faculty on(Student_Faculty=Faculty_id)
+        where 
+        Department_id=Student_Department 
+        and UniCol_id = Student_UniCol and student_id=? and student_Start=?";
+        //and student_Faculty=Faculty_id 
+        return $this->db->query($sql, array($id, $date))->result();
+    }
+
 
 }
 

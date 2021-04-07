@@ -164,8 +164,8 @@ class Adminpdf extends CI_Controller
             $pdf->Text(60, $pdf->getY() + 15, 'จึงเรียนมาเพื่อโปรดทราบ');
             $pdf->Ln(29);
 
-            //$pdf->MultiCell(164,10,co($pdf->getX().'/'.$pdf->getY()));
-            //$pdf->MultiCell(164,10,co($pdf->getX().'/'.$pdf->getY()));
+            //$pdf->MultiCell(164,10,$pdf->getX().'/'.$pdf->getY()));
+            //$pdf->MultiCell(164,10,$pdf->getX().'/'.$pdf->getY()));
             //--------------------------------
             //$pdf->Text(112, $pdf->getY() + 0, 'ขอแสดงความนับถือ'));
             $pdf->Text(108, $pdf->getY() + 15, '(นางสาวผุสดี  มุหะหมัด)');
@@ -218,13 +218,13 @@ class Adminpdf extends CI_Controller
             $pdf->Text(35, 80, 'เรื่อง  ขอส่งตัวนักศึกษาฝึก' . ($data->form_type == 1 ? 'ประสบการณ์วิชาชีพ' : 'สหกิจศึกษา'));
 
 
-            $pdf->Text(35, 87, 'เรียน  คณบดีคณะ' . $data->Faculty_name . ' มหาวิทยาลัย' . $data->UniCol_name);
+            $pdf->Text(35, 87, 'เรียน  คณบดีคณะ' . $data->Faculty_name . ' ' . ($data->UniCol_type === "uni" ? 'มหา' : '') . 'วิทยาลัย' . $data->UniCol_name);
 
             $pdf->Ln(20);
 
             //--------------------------------
 
-            $pdf->MultiCell(0, 7, '                ตามที่หน่วยเครื่องมือกลาง คณะวิทยาศาสตร์ มหาวิทยาลัยสงขลานครินทร์ รับนักศึกษาฝึก' . ($data->form_type == 1 ? 'ประสบการณ์วิชาชีพ' : 'สหกิจศึกษา') . ' มาฝึกงาน' . $data->form_about . ' ระหว่างวันที่ ' . $this->uf->thai_date($data->form_start) . ' ถึง ' . $this->uf->thai_date($data->form_end) . ' จำนวน ' .$data->form_amo . ' คนนั้น บัดนี้การฝึกงานได้เสร็จสิ้นแล้วจึงขอส่ง ตัวนักศึกษากลับสถาบัน', 0, 'L');
+            $pdf->MultiCell(0, 7, '                ตามที่หน่วยเครื่องมือกลาง คณะวิทยาศาสตร์ มหาวิทยาลัยสงขลานครินทร์ รับนักศึกษาฝึก' . ($data->form_type == 1 ? 'ประสบการณ์วิชาชีพ' : 'สหกิจศึกษา') . ' มาฝึกงาน' . $data->form_about . ' ระหว่างวันที่ ' . $this->uf->thai_date($data->form_start) . ' ถึง ' . $this->uf->thai_date($data->form_end) . ' จำนวน ' . $data->form_amo . ' คนนั้น บัดนี้การฝึกงานได้เสร็จสิ้นแล้วจึงขอส่ง ตัวนักศึกษากลับสถาบัน', 0, 'L');
             $pdf->Text(60, $pdf->getY() + 15, 'จึงเรียนมาเพื่อโปรดทราบ');
             $pdf->Ln(29);
 
@@ -241,7 +241,7 @@ class Adminpdf extends CI_Controller
 
             $pdf->SetMargins(23, 30, 23);
             $pdf->AddPage();
-            //addFont
+            //addimg
             $pdf->Image('asset/pic/in.jpg', 23, 20);
 
 
@@ -285,14 +285,14 @@ class Adminpdf extends CI_Controller
             $pdf->Ln(20);
             //--------------------------------
             $pdf->SetFont('thsarabun', '', 16);
-            $pdf->MultiCell(164, 10, '                   ตามที่หน่วยเครื่องมือกลาง คณะวิทยาศาสตร์ มหาวิทยาลัยสงขลานครินทร์ รับนักศึกษาฝึก' . ($data->form_type == 1 ? 'ประสบการณ์วิชาชีพ' : 'สหกิจศึกษา') . ' มาฝึกงาน' . $data->form_about . ' ระหว่างวันที่ ' . $this->uf->thai_date($data->form_start) . ' ถึง ' . $this->uf->thai_date($data->form_end  ) . ' จำนวน ' . $data->form_amo . ' คนนั้น บัดนี้การฝึกงานได้เสร็จสิ้นแล้ว จึงขอส่งตัวนักศึกษากลับ', 0, 'L');
+            $pdf->MultiCell(164, 10, '                   ตามที่หน่วยเครื่องมือกลาง คณะวิทยาศาสตร์ มหาวิทยาลัยสงขลานครินทร์ รับนักศึกษาฝึก' . ($data->form_type == 1 ? 'ประสบการณ์วิชาชีพ' : 'สหกิจศึกษา') . ' มาฝึกงาน' . $data->form_about . ' ระหว่างวันที่ ' . $this->uf->thai_date($data->form_start) . ' ถึง ' . $this->uf->thai_date($data->form_end) . ' จำนวน ' . $data->form_amo . ' คนนั้น บัดนี้การฝึกงานได้เสร็จสิ้นแล้ว จึงขอส่งตัวนักศึกษากลับ', 0, 'L');
             $pdf->Text(60, $pdf->getY() + 15, 'จึงเรียนมาเพื่อโปรดทราบ');
             $pdf->Ln(29);
 
-            //$pdf->MultiCell(164,10,co($pdf->getX().'/'.$pdf->getY()));
-            //$pdf->MultiCell(164,10,co($pdf->getX().'/'.$pdf->getY()));
+            //$pdf->MultiCell(164,10,$pdf->getX().'/'.$pdf->getY()));
+            //$pdf->MultiCell(164,10,$pdf->getX().'/'.$pdf->getY()));
             //--------------------------------
-            //$pdf->Text(112, $pdf->getY() + 0, co('ขอแสดงความนับถือ'));
+            //$pdf->Text(112, $pdf->getY() + 0, 'ขอแสดงความนับถือ'));
             $pdf->Text(108, $pdf->getY() + 15, '(นางสาวผุสดี  มุหะหมัด)');
             $pdf->Text(105, $pdf->getY() + 10, 'หัวหน้าหน่วยเครื่องมือกลาง');
             $pdf->Ln(29);
@@ -300,5 +300,68 @@ class Adminpdf extends CI_Controller
 
 
         $pdf->Output();
+    }
+
+    public function certi()
+    {
+        $this->load->library('form_validation');
+
+        $this->form_validation->set_rules('id', 'Form Id', 'required|trim');
+        $this->form_validation->set_rules('dstart', 'Form Id', 'required|trim');
+        if ($this->form_validation->run() == FALSE) { //if not input
+            redirect("adminconsole/pdf/certi");
+        }
+
+        //$_POST['uid'] side
+
+        $temp = $this->ld->getallformcerti_one($_POST['id'], $_POST['dstart']);
+        if (count($temp) != 1) {
+            redirect("adminconsole/pdf/certi");
+        }
+        $data = $temp[0];
+
+        $pdf = new TCPDF('L','mm','A4',true,'UTF-8',false,true);
+        
+        $pdf->setPrintHeader(false);
+        $pdf->AddPage();
+        //$pdf->Image('asset/pic/back.png', 0, 0, 297, 210,'','','T',false,300,'C',false,true,1,false,false,true,false,false);
+
+        //--------------------------------------------
+        $pdf->SetFont('thsarabun', '', 40);
+        $pdf->SetTextColor(227, 108, 10);
+        //--------------------------------
+        $pdf->Ln(5);
+        $pdf->MultiCell(0, 20, 'หนังสือรับรองการฝึกงาน', 0, 'C');
+
+        $pdf->SetFont('thsarabun', '', 28);
+        $pdf->SetTextColor(0, 32, 96);
+        $pdf->Ln(5);
+        $pdf->MultiCell(0, 15, "$data->student_FNS $data->student_FName $data->student_LName", 0, 'C');
+        $pdf->SetFont('thsarabun', '', 24);
+        $pdf->SetTextColor(128, 0, 128);
+        $pdf->MultiCell(0, 11, "ได้ผ่านการฝึกงาน ตามหลักสูตรปริญญาตรี", 0, 'C');
+        $pdf->MultiCell(0, 11, "สาขาวิชา $data->Department_name", 0, 'C');
+        $pdf->MultiCell(0, 11, ($data->UniCol_type === "uni" ? 'มหา' : '') . "วิทยาลัย$data->UniCol_name", 0, 'C');
+        $pdf->MultiCell(0, 11, "จาก หน่วยเครื่องมือกลาง", 0, 'C');
+        $pdf->MultiCell(0, 11, $_POST['side'], 0, 'C');
+        $pdf->MultiCell(0, 11, "ที่ตั้ง คณะวิทยาศาสตร์ มหาวิทยาลัยสงขลานครินทร์ อ.หาดใหญ่ จ.สงขลา", 0, 'C');
+        $pdf->MultiCell(0, 11, "โดยมีระยะเวลาการฝึกงาน ตั้งแต่วันที่ " . $this->uf->thai_date($data->student_Start) . ' ถึง ' . $this->uf->thai_date($data->student_End), 0, 'C');
+        $pdf->MultiCell(0, 11, "ในระหว่างการฝึกงานนักศึกษามีความประพฤติเรียบร้อย ขยันหมั่นเพียร มีความตั้งใจ", 0, 'C');
+        $pdf->Ln(15);
+        $pdf->SetTextColor(0, 0, 128);
+        $pdf->Cell(170);
+        // Centered text in a framed 20*10 mm cell and line break
+        $pdf->Cell(40, 10, 'ลงชื่อ.....................................', 0, 1, 'C');
+        $pdf->Cell(170);
+        // Centered text in a framed 20*10 mm cell and line break
+        $pdf->Cell(40, 10, '(นางสาวผุสดี มุหะหมัด)', 0, 1, 'C');
+        $pdf->Cell(170);
+        // Centered text in a framed 20*10 mm cell and line break
+        $pdf->Cell(40, 10, 'ตำแหน่ง หัวหน้าหน่วยเครื่องมือกลาง', 0, 1, 'C');
+        //--------------------------------
+
+
+
+        $pdf->Output('certificate-' . $_REQUEST['id'] . '.pdf','I');
     }
 }
