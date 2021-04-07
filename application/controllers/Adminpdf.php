@@ -324,38 +324,38 @@ class Adminpdf extends CI_Controller
 
         $pdf->setPrintHeader(false);
         $pdf->AddPage();
-        //$pdf->Image('asset/pic/back.png', 0, 0, 297, 210,'','','T',false,300,'C',false,true,1,false,false,true,false,false);
+        $pdf->Image('asset/pic/back.png', 0, 0, 297, 210, '', '', 'T', false, 300, 'C', false, true, 1, false, false, true, false, false);
 
         //--------------------------------------------
-        $pdf->SetFont('thsarabun', '', 40);
+        $pdf->SetFont('thsarabun', '', 28);
         $pdf->SetTextColor(227, 108, 10);
         //--------------------------------
-        $pdf->Ln(5);
-        $pdf->MultiCell(0, 20, 'หนังสือรับรองการฝึกงาน', 0, 'C');
+        $pdf->Ln(20);
+        $pdf->MultiCell(0, 10, 'หนังสือรับรองการฝึกงาน', 0, 'C');
 
-        $pdf->SetFont('thsarabun', '', 28);
+        $pdf->SetFont('thsarabun', '', 22);
         $pdf->SetTextColor(0, 32, 96);
-        $pdf->Ln(5);
+        $pdf->Ln(1);
         $pdf->MultiCell(0, 15, "$data->student_FNS $data->student_FName $data->student_LName", 0, 'C');
-        $pdf->SetFont('thsarabun', '', 24);
+        $pdf->SetFont('thsarabun', '', 20);
         $pdf->SetTextColor(128, 0, 128);
-        $pdf->MultiCell(0, 11, "ได้ผ่านการฝึกงาน ตามหลักสูตรปริญญาตรี", 0, 'C');
-        $pdf->MultiCell(0, 11, "สาขาวิชา $data->Department_name", 0, 'C');
-        $pdf->MultiCell(0, 11, ($data->UniCol_type === "uni" ? 'มหา' : '') . "วิทยาลัย$data->UniCol_name", 0, 'C');
-        $pdf->MultiCell(0, 11, "จาก หน่วยเครื่องมือกลาง", 0, 'C');
-        $pdf->MultiCell(0, 11, $_POST['side'], 0, 'C');
-        $pdf->MultiCell(0, 11, "ที่ตั้ง คณะวิทยาศาสตร์ มหาวิทยาลัยสงขลานครินทร์ อ.หาดใหญ่ จ.สงขลา", 0, 'C');
-        $pdf->MultiCell(0, 11, "โดยมีระยะเวลาการฝึกงาน ตั้งแต่วันที่ " . $this->uf->thai_date($data->student_Start) . ' ถึง ' . $this->uf->thai_date($data->student_End), 0, 'C');
-        $pdf->MultiCell(0, 11, "ในระหว่างการฝึกงานนักศึกษามีความประพฤติเรียบร้อย ขยันหมั่นเพียร มีความตั้งใจ", 0, 'C');
-        $pdf->Ln(15);
+        $pdf->MultiCell(0, 8, "ได้ผ่านการฝึกงาน ตามหลักสูตรปริญญาตรี", 0, 'C');
+        $pdf->MultiCell(0, 8, "สาขาวิชา $data->Department_name", 0, 'C');
+        $pdf->MultiCell(0, 8, ($data->UniCol_type === "uni" ? 'มหา' : '') . "วิทยาลัย$data->UniCol_name", 0, 'C');
+        $pdf->MultiCell(0, 8, "จาก หน่วยเครื่องมือกลาง", 0, 'C');
+        $pdf->MultiCell(0, 8, $_POST['side'], 0, 'C');
+        $pdf->MultiCell(0, 8, "ที่ตั้ง คณะวิทยาศาสตร์ มหาวิทยาลัยสงขลานครินทร์ อ.หาดใหญ่ จ.สงขลา", 0, 'C');
+        $pdf->MultiCell(0, 8, "โดยมีระยะเวลาการฝึกงาน ตั้งแต่วันที่ " . $this->uf->thai_date($data->student_Start) . ' ถึง ' . $this->uf->thai_date($data->student_End), 0, 'C');
+        $pdf->MultiCell(0, 8, "ในระหว่างการฝึกงานนักศึกษามีความประพฤติเรียบร้อย ขยันหมั่นเพียร มีความตั้งใจ", 0, 'C');
+        $pdf->Ln(10);
         $pdf->SetTextColor(0, 0, 128);
-        $pdf->Cell(170);
+        $pdf->Cell(150);
         // Centered text in a framed 20*10 mm cell and line break
         $pdf->Cell(40, 10, 'ลงชื่อ.....................................', 0, 1, 'C');
-        $pdf->Cell(170);
+        $pdf->Cell(150);
         // Centered text in a framed 20*10 mm cell and line break
         $pdf->Cell(40, 10, '(นางสาวผุสดี มุหะหมัด)', 0, 1, 'C');
-        $pdf->Cell(170);
+        $pdf->Cell(150);
         // Centered text in a framed 20*10 mm cell and line break
         $pdf->Cell(40, 10, 'ตำแหน่ง หัวหน้าหน่วยเครื่องมือกลาง', 0, 1, 'C');
         //--------------------------------
@@ -432,7 +432,7 @@ class Adminpdf extends CI_Controller
             $html .= "</tr>";
             foreach ($datas as $data) {
                 $html .= "<tr>";
-                $html .= '<td width="65%" text-align="justify">' . ($data->UniCol_type === "uni" ? 'มหา' : '') . 'วิทยาลัย' . $data->UniCol_name .($data->UniCol_type === "uni" ? ' คณะ' . $data->Faculty_name : '')  . ' สาขา' . $data->Department_name . '</td>';
+                $html .= '<td width="65%" text-align="justify">' . ($data->UniCol_type === "uni" ? 'มหา' : '') . 'วิทยาลัย' . $data->UniCol_name . ($data->UniCol_type === "uni" ? ' คณะ' . $data->Faculty_name : '')  . ' สาขา' . $data->Department_name . '</td>';
                 $html .= '<td width="23%">' . $this->uf->thai_date($data->student_Start) . ' ถึง ' . $this->uf->thai_date($data->student_End) . '</td>';
                 $html .= '<td width="12%" align="center">' . $data->c . '</td>';
                 $html .= "</tr>";
