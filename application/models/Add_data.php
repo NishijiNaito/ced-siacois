@@ -103,6 +103,20 @@ class Add_data extends CI_Model
     {
         return $this->db->delete('form_accept', $data);
     }
+
+
+    function add_form_return($data)
+    {
+        return $this->db->insert('form_return', $data);
+    }
+    function edit_form_return($data)
+    {
+        return $this->db->update('form_return', $data, array('form_id' => $data['form_id']));
+    }
+    function delete_form_return($data)
+    {
+        return $this->db->delete('form_return', $data);
+    }
     /*
     function add_detail_project($data)
     {

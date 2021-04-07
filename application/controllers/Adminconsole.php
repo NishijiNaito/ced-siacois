@@ -167,7 +167,7 @@ class Adminconsole extends CI_Controller
           echo "ErROR";
         }
       }
-    } elseif ($mode == 'delete') {//delete
+    } elseif ($mode == 'delete') { //delete
       if ($id == null) {
         redirect("adminconsole/employee");
       }
@@ -178,7 +178,7 @@ class Adminconsole extends CI_Controller
       } else { // false
         echo "ErROR";
       }
-    } else {//other case
+    } else { //other case
       redirect('adminconsole/Employee');
     }
   }
@@ -284,7 +284,7 @@ class Adminconsole extends CI_Controller
       $this->load->view('html_admin_std_edit', $std);
 
       $this->load->view('bottom');
-    } elseif ($mode == 'save') {// std - save
+    } elseif ($mode == 'save') { // std - save
       //
 
       //for form validation
@@ -345,7 +345,7 @@ class Adminconsole extends CI_Controller
           }
         }
       }
-    } elseif ($mode == 'delete') {// std - delete
+    } elseif ($mode == 'delete') { // std - delete
       if ($id == null || $dat == null) {
         redirect("adminconsole/student");
       }
@@ -579,7 +579,7 @@ class Adminconsole extends CI_Controller
 
 
       $this->load->view('bottom');
-    } elseif ($mode == "accept") { // pdf accept
+    } elseif ($mode === "accept") { // pdf accept
       if ($type == null) { // accept - Index
         $data['nav'] = array(array('Adminconsole', 'adminconsole'), array('PDF', 'adminconsole/pdf'), array('accept'));
 
@@ -707,7 +707,7 @@ class Adminconsole extends CI_Controller
         } else { // false
           $this->_error("เกิดข้อผิดพลาด โปรดรอ 3 วินาที", "adminconsole/pdf/accept");
         }
-      } else if ($type === "delete"){ // accept - delete
+      } else if ($type === "delete") { // accept - delete
         if ($id == null) { //have id
           redirect("adminconsole/pdf/accept");
         }
@@ -717,9 +717,148 @@ class Adminconsole extends CI_Controller
         } else { // false
           echo "ErROR";
         }
-      }
-      else { // accept - Other Case
+      } else { // accept - Other Case
         redirect("adminconsole/pdf/accept");
+      }
+    } elseif ($mode === "returning") { // pdf returning
+      if ($type == null) { // returning - index
+        $data['nav'] = array(array('Adminconsole', 'adminconsole'), array('PDF', 'adminconsole/pdf'), array('returning'));
+
+        //$std['stds'] = $this->ld->getallstds();
+        //$sub['unicols'] = $this->ld->getallunicols();
+        //$sub['facs'] = $this->ld->getallfacs();
+        //$sub['deps'] = $this->ld->getalldeps();
+        $pdf['forms'] = $this->ld->getallformreturn_all();
+
+        $this->load->view('header');
+        $this->load->view('html_head');
+        $this->load->view('script_pdf');
+
+        $this->load->view('html_address', $data);
+
+        $this->load->view('html_admin_pdf_returning', $pdf);
+
+
+
+        $this->load->view('bottom');
+      } elseif ($type === "add") { // returning - add
+        $data['nav'] = array(array('Adminconsole', 'adminconsole'), array('PDF', 'adminconsole/pdf'), array('returning', 'adminconsole/pdf/returning'), array('Add'));
+
+        //$std['stds'] = $this->ld->getallstds();
+        $sub['unicols'] = $this->ld->getallunicols();
+        $sub['facs'] = $this->ld->getallfacs();
+        $sub['deps'] = $this->ld->getalldeps();
+        $this->load->view('header');
+        $this->load->view('html_head');
+        $this->load->view('html_address', $data);
+        $this->load->view('html_admin_pdf_returning_add', $sub);
+        $this->load->view('bottom');
+      } elseif ($type === "saveadd") { // returning - saveadd
+        $this->load->library('form_validation');
+
+        $this->form_validation->set_rules('uid', 'UniCol', 'required|trim');
+        $this->form_validation->set_rules('fid', 'Faculty', 'required|trim');
+        if ($this->form_validation->run() == FALSE) { //if not input
+          redirect("adminconsole/pdf/returning");
+        }
+
+        //$_POST['uid'], $_POST['fid'], $_POST['did']
+        //$_POST['ww'], $_POST['dates'], $_POST['datee']
+        //$_POST['amount'], $_POST['type']
+        $data['form_unicol'] = $_POST['uid'];
+        $data['form_fac'] = $_POST['fid'];
+        $data['form_dep'] = $_POST['did'];
+
+        $data['form_about'] = $_POST['ww'];
+        $data['form_start'] = $_POST['dates'];
+        $data['form_end'] = $_POST['datee'];
+
+        $data['form_amo'] = $_POST['amount'];
+        $data['form_type'] = $_POST['type'];
+
+
+        if ($this->ad->add_form_return($data) == TRUE) { //True
+          redirect("adminconsole/pdf/returning");
+        } else { // false
+
+          $this->_error("เกิดข้อผิดพลาด โปรดรอ 3 วินาที", "adminconsole/pdf/returning");
+        }
+      } elseif ($type === "edit") { // returning - edit
+        if ($id == null) {
+          redirect('adminconsole/pdf/returning');
+        }
+
+        $data['nav'] = array(
+          array('Adminconsole', 'adminconsole'), array('PDF', 'adminconsole/pdf'),
+          array('returning', 'adminconsole/pdf/returning'), array('Edit - ' . $id)
+        );
+
+
+        $temp = $this->ld->getallformreturn_one($id);
+
+        if (count($temp) != 1) {
+          redirect('adminconsole/pdf/returning');
+        }
+
+        $sub['form'] = $temp[0];
+
+
+
+        $sub['unicols'] = $this->ld->getallunicols();
+        $sub['facs'] = $this->ld->getallfacs();
+        $sub['deps'] = $this->ld->getalldeps();
+
+
+        $this->load->view('header');
+        $this->load->view('html_head');
+        $this->load->view('html_address', $data);
+
+        $this->load->view('html_admin_pdf_returning_edit', $sub);
+
+
+        $this->load->view('bottom');
+      } elseif ($type === "saveedit") { // returning - saveedit
+        $this->load->library('form_validation');
+
+        $this->form_validation->set_rules('uid', 'UniCol', 'required|trim');
+        $this->form_validation->set_rules('fid', 'Faculty', 'required|trim');
+        if ($this->form_validation->run() == FALSE) { //if not input
+          redirect("adminconsole/pdf/returning");
+        }
+
+        //$_POST['uid'], $_POST['fid'], $_POST['did']
+        //$_POST['ref'], $_POST['dates'], $_POST['datee']
+        //$_POST['amount'], $_POST['type']
+        $data['form_id'] = $_POST['id'];
+        $data['form_unicol'] = $_POST['uid'];
+        $data['form_fac'] = $_POST['fid'];
+        $data['form_dep'] = $_POST['did'];
+
+        $data['form_about'] = $_POST['ww'];
+        $data['form_start'] = $_POST['dates'];
+        $data['form_end'] = $_POST['datee'];
+
+        $data['form_amo'] = $_POST['amount'];
+        $data['form_type'] = $_POST['type'];
+
+
+        if ($this->ad->edit_form_return($data) == TRUE) { //True
+          redirect("adminconsole/pdf/returning");
+        } else { // false
+          $this->_error("เกิดข้อผิดพลาด โปรดรอ 3 วินาที", "adminconsole/pdf/returning");
+        }
+      } elseif ($type === "delete") { // returning -delete
+        if ($id == null) { //have id
+          redirect("adminconsole/pdf/returning");
+        }
+        $data['form_id'] = $id;
+        if ($this->ad->delete_form_return($data) == TRUE) { //True
+          redirect("adminconsole/pdf/returning");
+        } else { // false
+          echo "ErROR";
+        }
+      } else { // returning - others
+        redirect("adminconsole/pdf/returning");
       }
     } else { // other not in mode go to index mode
       redirect("adminconsole/pdf");
