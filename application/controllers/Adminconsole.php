@@ -880,6 +880,25 @@ class Adminconsole extends CI_Controller
 
 
       $this->load->view('bottom');
+    } elseif ($mode === "summary") { // PDF summary
+      $data['nav'] = array(array('Adminconsole', 'adminconsole'), array('PDF', 'adminconsole/pdf'), array('summary'));
+
+      //$std['stds'] = $this->ld->getallstds();
+      //$sub['unicols'] = $this->ld->getallunicols();
+      //$sub['facs'] = $this->ld->getallfacs();
+      //$sub['deps'] = $this->ld->getalldeps();
+      //$pdf['forms'] = $this->ld->getallformreturn_all();
+
+      $this->load->view('header');
+      $this->load->view('html_head');
+      $this->load->view('script_pdf');
+
+      $this->load->view('html_address', $data);
+
+      $this->load->view('html_admin_pdf_summary');
+
+      $this->load->view('bottom');
+      
     } else { // other not in mode go to index mode
       redirect("adminconsole/pdf");
     }
