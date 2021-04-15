@@ -13,7 +13,7 @@ class Adminpdf extends CI_Controller
         $this->load->model('Useful', 'uf');
 
         $this->load->library('Pdf'); //$pdf = new Pdf();
-
+        //$this->load->library('FFPdf'); //$pdf = new FFPdf();
         $this->session;
         $this->_checkisadmin();
     }
@@ -319,13 +319,15 @@ class Adminpdf extends CI_Controller
             redirect("adminconsole/pdf/certi");
         }
         $data = $temp[0];
-
-        $pdf = new TCPDF('L', 'mm', 'A4', true, 'UTF-8', false, true);
+        
+        $pdf = new TCPDF('L', 'mm', [297,210], true, 'UTF-8', false, true);
 
         $pdf->SetMargins(0, 0, 0);
         $pdf->setPrintHeader(false);
+        $pdf->setPrintFooter(false);
+        $pdf->SetAutoPageBreak(false,0); //เพื่อให้เต็มหน้า
         $pdf->AddPage();
-        $pdf->Image('asset/pic/back.png', 0, 0, 297, 210, '', '', 'T', false, 300, 'C', false, true, 1, false, false, true, false, false);
+        $pdf->Image('asset/pic/back.png', 0, 0, 297, 210, '', '', 'T', false, 300,'C');
 
         //--------------------------------------------
         $pdf->SetFont('thsarabun', '', 28);
@@ -364,6 +366,7 @@ class Adminpdf extends CI_Controller
 
 
         $pdf->Output('certificate-' . $_REQUEST['id'] . '.pdf', 'I');
+        
     }
 
     public function summary()
