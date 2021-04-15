@@ -4,14 +4,15 @@ defined('BASEPATH') or exit('No direct script access allowed');
 <!-- Html Head -->
 <div class="container-fluid">
 
+    
+
     <div class="row justify-content-center">
         <div class="col-md-11">
-            <div class="jumbotron jumbotron-fluid" >
+            <div class="jumbotron ">
                 <div class="container">
-                    <h3 class="display-4">ระบบสารสนเทศ</h3>
-                    <p class="lead">ฝึกงานฤดูร้อน/สหกิจศึกษา</p>
-                    <hr class="my-4">
-                    <p>หน่วยเครื่องมือกลาง คณะวิทยาศาสตร์</p>
+                    <div class="page-header">
+                        <h1>ระบบสารสนเทศ ฝึกงานฤดูร้อน/สหกิจศึกษา <br> <small>ศูนย์บริการตรวจสอบและรับรองมาตรฐาน</small></h1>
+                    </div>
                 </div>
             </div>
         </div>

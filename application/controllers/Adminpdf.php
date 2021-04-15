@@ -1,5 +1,5 @@
 <?php
-
+//หน่วยเครื่องมือกลาง คณะวิทยาศาสตร์ -> ศูนย์บริการตรวจสอบและรับรองมาตรฐาน
 defined('BASEPATH') or exit('No direct script access allowed');
 
 class Adminpdf extends CI_Controller
@@ -78,7 +78,7 @@ class Adminpdf extends CI_Controller
             $pdf->SetFont('thsarabun', '', 15);
             $pdf->Text(35, 30, 'ที่ อว.6801.0917 ');
 
-            $pdf->Text(135, 30, 'หน่วยเครื่องมือกลาง คณะวิทยาศาสตร์');
+            $pdf->Text(135, 30, 'ศูนย์บริการตรวจสอบและรับรองมาตรฐาน');
             $pdf->Text(135, 37, 'มหาวิทยาลัยสงขลานครินทร์');
             $pdf->Text(135, 44, 'ตู้ ปณ 3 คอหงส์ หาดใหญ่');
             $pdf->Text(135, 51, 'สงขลา 90112');
@@ -129,7 +129,7 @@ class Adminpdf extends CI_Controller
             $pdf->Text(23, 50, 'ส่วนงาน');
 
             $pdf->SetFont('thsarabun', '', 17);
-            $pdf->Text(43, 50, 'หน่วยเครื่องมือกลาง คณะวิทยาศาสตร์ โทร. 8058');
+            $pdf->Text(43, 50, 'ศูนย์บริการตรวจสอบและรับรองมาตรฐาน โทร. 8058');
             //--------------------------------
             $pdf->SetFont('thsarabun', '', 17);
             $pdf->Text(23, 60, 'ที่่');
@@ -205,7 +205,7 @@ class Adminpdf extends CI_Controller
             //--------------------------------------------
             $pdf->Text(35, 30, 'ที่ อว.6801.0917 ');
 
-            $pdf->Text(135, 30, 'หน่วยเครื่องมือกลาง คณะวิทยาศาสตร์');
+            $pdf->Text(135, 30, 'ศูนย์บริการตรวจสอบและรับรองมาตรฐาน');
             $pdf->Text(135, 37, 'มหาวิทยาลัยสงขลานครินทร์');
             $pdf->Text(135, 44, 'ตู้ ปณ 3 คอหงส์ หาดใหญ่');
             $pdf->Text(135, 51, 'สงขลา 90112');
@@ -224,7 +224,7 @@ class Adminpdf extends CI_Controller
 
             //--------------------------------
 
-            $pdf->MultiCell(0, 7, '                ตามที่หน่วยเครื่องมือกลาง คณะวิทยาศาสตร์ มหาวิทยาลัยสงขลานครินทร์ รับนักศึกษาฝึก' . ($data->form_type == 1 ? 'ประสบการณ์วิชาชีพ' : 'สหกิจศึกษา') . ' มาฝึกงาน' . $data->form_about . ' ระหว่างวันที่ ' . $this->uf->thai_date($data->form_start) . ' ถึง ' . $this->uf->thai_date($data->form_end) . ' จำนวน ' . $data->form_amo . ' คนนั้น บัดนี้การฝึกงานได้เสร็จสิ้นแล้วจึงขอส่ง ตัวนักศึกษากลับสถาบัน', 0, 'L');
+            $pdf->MultiCell(0, 7, '                ตามที่ศูนย์บริการตรวจสอบและรับรองมาตรฐาน มหาวิทยาลัยสงขลานครินทร์ รับนักศึกษาฝึก' . ($data->form_type == 1 ? 'ประสบการณ์วิชาชีพ' : 'สหกิจศึกษา') . ' มาฝึกงาน' . $data->form_about . ' ระหว่างวันที่ ' . $this->uf->thai_date($data->form_start) . ' ถึง ' . $this->uf->thai_date($data->form_end) . ' จำนวน ' . $data->form_amo . ' คนนั้น บัดนี้การฝึกงานได้เสร็จสิ้นแล้วจึงขอส่ง ตัวนักศึกษากลับสถาบัน', 0, 'L');
             $pdf->Text(60, $pdf->getY() + 15, 'จึงเรียนมาเพื่อโปรดทราบ');
             $pdf->Ln(29);
 
@@ -254,7 +254,7 @@ class Adminpdf extends CI_Controller
             $pdf->Text(23, 50, 'ส่วนงาน');
 
             $pdf->SetFont('thsarabun', '', 17);
-            $pdf->Text(43, 50, 'หน่วยเครื่องมือกลาง คณะวิทยาศาสตร์ โทร. 8058');
+            $pdf->Text(43, 50, 'ศูนย์บริการตรวจสอบและรับรองมาตรฐาน โทร. 8058');
             //--------------------------------
             $pdf->SetFont('thsarabun', '', 17);
             $pdf->Text(23, 60, 'ที่่');
@@ -285,7 +285,7 @@ class Adminpdf extends CI_Controller
             $pdf->Ln(20);
             //--------------------------------
             $pdf->SetFont('thsarabun', '', 16);
-            $pdf->MultiCell(164, 10, '                   ตามที่หน่วยเครื่องมือกลาง คณะวิทยาศาสตร์ มหาวิทยาลัยสงขลานครินทร์ รับนักศึกษาฝึก' . ($data->form_type == 1 ? 'ประสบการณ์วิชาชีพ' : 'สหกิจศึกษา') . ' มาฝึกงาน' . $data->form_about . ' ระหว่างวันที่ ' . $this->uf->thai_date($data->form_start) . ' ถึง ' . $this->uf->thai_date($data->form_end) . ' จำนวน ' . $data->form_amo . ' คนนั้น บัดนี้การฝึกงานได้เสร็จสิ้นแล้ว จึงขอส่งตัวนักศึกษากลับ', 0, 'L');
+            $pdf->MultiCell(164, 10, '                   ตามที่ศูนย์บริการตรวจสอบและรับรองมาตรฐาน มหาวิทยาลัยสงขลานครินทร์ รับนักศึกษาฝึก' . ($data->form_type == 1 ? 'ประสบการณ์วิชาชีพ' : 'สหกิจศึกษา') . ' มาฝึกงาน' . $data->form_about . ' ระหว่างวันที่ ' . $this->uf->thai_date($data->form_start) . ' ถึง ' . $this->uf->thai_date($data->form_end) . ' จำนวน ' . $data->form_amo . ' คนนั้น บัดนี้การฝึกงานได้เสร็จสิ้นแล้ว จึงขอส่งตัวนักศึกษากลับ', 0, 'L');
             $pdf->Text(60, $pdf->getY() + 15, 'จึงเรียนมาเพื่อโปรดทราบ');
             $pdf->Ln(29);
 
@@ -322,6 +322,7 @@ class Adminpdf extends CI_Controller
 
         $pdf = new TCPDF('L', 'mm', 'A4', true, 'UTF-8', false, true);
 
+        $pdf->SetMargins(0, 0, 0);
         $pdf->setPrintHeader(false);
         $pdf->AddPage();
         $pdf->Image('asset/pic/back.png', 0, 0, 297, 210, '', '', 'T', false, 300, 'C', false, true, 1, false, false, true, false, false);

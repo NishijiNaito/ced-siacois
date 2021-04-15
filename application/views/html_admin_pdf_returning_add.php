@@ -2,7 +2,7 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 ?>
 
-<!-- Html Admin Pdf returning -->
+<!-- Html Admin Pdf returning Add -->
 <div class="row justify-content-center">
     <div class="col-md-11">
         <div class="row">
