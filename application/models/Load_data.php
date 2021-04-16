@@ -221,8 +221,8 @@ class Load_data extends CI_Model
     }
 
     function getallformsummary_one($dates, $datee){
-        $sql = "SELECT UniCol_name,UniCol_type,Faculty_name,Department_name,student_Start,student_End,count(*) c from department d,faculty f,unicol u,student s 
-        where UniCol_id = student_UniCol and Faculty_id=student_Faculty 
+        $sql = "SELECT UniCol_name,UniCol_type,Faculty_name,Department_name,student_Start,student_End,count(*) c from department d,unicol u,student s left join faculty on(Student_Faculty=Faculty_id) 
+        where UniCol_id = student_UniCol 
         and student_department = Department_id 
         and student_Start>= ? and student_Start<= ? 
         group by student_UniCol,student_Faculty,student_department,student_Start";
