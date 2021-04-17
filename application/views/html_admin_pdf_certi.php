@@ -93,7 +93,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                                                     <input type="hidden" name="dstart" value="<?php echo $form->student_Start; ?>">
                                                                     <div class="form-group">
                                                                         <label for="side">ฝึกงานในด้าน</label>
-                                                                        <input type="text" class="form-control" name="side" id="side" aria-describedby="helpside" placeholder="ด้าน......">
+                                                                        <input type="text" class="form-control" name="side" id="side" aria-describedby="helpside" placeholder="ด้าน (จำเป็น)" required>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="topic">โดยมีหัวข้อวิจัยเรื่อง</label>
+                                                                        <input type="text" class="form-control" name="topic" id="topic" aria-describedby="helpside" placeholder="หัวข้อวิจัย (ใส่หรือไม่ก็ได้)">
                                                                     </div>
                                                                     <button type="submit" class="btn btn-success">สร้าง</button>
                                                                 </form>

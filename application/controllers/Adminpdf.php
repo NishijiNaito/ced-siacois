@@ -308,6 +308,7 @@ class Adminpdf extends CI_Controller
 
         $this->form_validation->set_rules('id', 'Form Id', 'required|trim');
         $this->form_validation->set_rules('dstart', 'Form Id', 'required|trim');
+        $this->form_validation->set_rules('side', 'side Name', 'required|trim');
         if ($this->form_validation->run() == FALSE) { //if not input
             redirect("adminconsole/pdf/certi");
         }
@@ -327,40 +328,49 @@ class Adminpdf extends CI_Controller
         $pdf->setPrintFooter(false);
         $pdf->SetAutoPageBreak(false,0); //เพื่อให้เต็มหน้า
         $pdf->AddPage();
+        
         $pdf->Image('asset/pic/back.png', 0, 0, 297, 210, '', '', 'T', false, 300,'C');
 
         //--------------------------------------------
         $pdf->SetFont('thsarabun', '', 28);
         $pdf->SetTextColor(227, 108, 10);
         //--------------------------------
-        $pdf->Ln(20);
-        $pdf->MultiCell(0, 10, 'หนังสือรับรองการฝึกงาน', 0, 'C');
+        $pdf->Image('asset/pic/out.jpg', 135, 17, 25, 40);
+        $pdf->Ln(60);
+        $pdf->MultiCell(0, 10, 'หนังสือรับรองการฝึก'.($data->student_type == 1 ? 'งาน' : 'สหกิจ' ), 0, 'C');
 
-        $pdf->SetFont('thsarabun', '', 22);
+        $pdf->SetFont('thsarabun', '', 18);
         $pdf->SetTextColor(0, 32, 96);
-        $pdf->Ln(1);
-        $pdf->MultiCell(0, 15, "$data->student_FNS $data->student_FName $data->student_LName", 0, 'C');
-        $pdf->SetFont('thsarabun', '', 20);
+        
+        $pdf->MultiCell(0, 8, "$data->student_FNS $data->student_FName $data->student_LName", 0, 'C');
+        $pdf->SetFont('thsarabun', '', 18);
         $pdf->SetTextColor(128, 0, 128);
         $pdf->MultiCell(0, 8, "ได้ผ่านการฝึกงาน ตามหลักสูตรปริญญาตรี", 0, 'C');
         $pdf->MultiCell(0, 8, "สาขาวิชา $data->Department_name", 0, 'C');
         $pdf->MultiCell(0, 8, ($data->UniCol_type === "uni" ? 'มหา' : '') . "วิทยาลัย$data->UniCol_name", 0, 'C');
-        $pdf->MultiCell(0, 8, "จาก หน่วยเครื่องมือกลาง", 0, 'C');
-        $pdf->MultiCell(0, 8, $_POST['side'], 0, 'C');
+        $pdf->MultiCell(0, 8, "จาก ศูนย์บริการตรวจสอบและรับรองมาตรฐาน", 0, 'C');
+        $pdf->MultiCell(0, 8, "ด้าน".$_POST['side'], 0, 'C');
+        if(trim($_POST['topic'])!=""){ 
+            $pdf->MultiCell(0, 8, "โดยมีหัวข้อวิจัยเรื่อง ".$_POST['topic'], 0, 'C');
+        }
         $pdf->MultiCell(0, 8, "ที่ตั้ง คณะวิทยาศาสตร์ มหาวิทยาลัยสงขลานครินทร์ อ.หาดใหญ่ จ.สงขลา", 0, 'C');
         $pdf->MultiCell(0, 8, "โดยมีระยะเวลาการฝึกงาน ตั้งแต่วันที่ " . $this->uf->thai_date($data->student_Start) . ' ถึง ' . $this->uf->thai_date($data->student_End), 0, 'C');
-        $pdf->MultiCell(0, 8, "ในระหว่างการฝึกงานนักศึกษามีความประพฤติเรียบร้อย ขยันหมั่นเพียร มีความตั้งใจ", 0, 'C');
-        $pdf->Ln(10);
+        $pdf->MultiCell(0, 8, 'ในระหว่างการฝึก'.($data->student_type == 1 ? 'งาน' : 'สหกิจ' ).'นักศึกษามีความประพฤติเรียบร้อย ขยันหมั่นเพียร มีความตั้งใจ', 0, 'C');
+        
+        if(trim($_POST['topic'])==""){ 
+            $pdf->Ln(10);
+        }
+        $pdf->Ln(8);
         $pdf->SetTextColor(0, 0, 128);
-        $pdf->Cell(150);
+        
         // Centered text in a framed 20*10 mm cell and line break
-        $pdf->Cell(40, 10, 'ลงชื่อ.....................................', 0, 1, 'C');
-        $pdf->Cell(150);
+        $pdf->MultiCell(0, 10, 'ลงชื่อ.....................................', 0, 'C');
+        
         // Centered text in a framed 20*10 mm cell and line break
-        $pdf->Cell(40, 10, '(นางสาวผุสดี มุหะหมัด)', 0, 1, 'C');
-        $pdf->Cell(150);
+        $pdf->MultiCell(0, 10, '(นางสาวผุสดี มุหะหมัด)', 0, 'C');
+        
         // Centered text in a framed 20*10 mm cell and line break
-        $pdf->Cell(40, 10, 'ตำแหน่ง หัวหน้าหน่วยเครื่องมือกลาง', 0, 1, 'C');
+        $pdf->MultiCell(0, 10, 'ตำแหน่ง หัวหน้าหน่วยเครื่องมือกลาง', 0, 'C');
         //--------------------------------
 
 
