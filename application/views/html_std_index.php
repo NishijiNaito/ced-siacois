@@ -57,7 +57,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                 <a href="<?php echo current_url(); ?>/leaverequest">
                                     <p class="card-text">ข้อมูลการลา/การออกใบลา</p>
                                 </a>
-
+                                <?php  if($date->dateremain <=10 && $eval){ ?>
+                                <a href="<?php echo current_url(); ?>/evaluate">
+                                    <p class="card-text">ประเมินการฝึกงาน</p>
+                                </a>
+                                <?php } ?>
                             </div>
                         </div>
 

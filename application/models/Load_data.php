@@ -231,6 +231,14 @@ class Load_data extends CI_Model
     }
 
 
+    function geteval_one($id, $date){
+        $sql = "SELECT * from evaluate
+        where evaluate_Std_id=? and evaluate_Std_start=?";
+        //and student_Faculty=Faculty_id 
+        return $this->db->query($sql, array($id, $date))->result();
+    }
+
+
 }
 
 /* End of file load_data.php */

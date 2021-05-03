@@ -117,6 +117,14 @@ class Add_data extends CI_Model
     {
         return $this->db->delete('form_return', $data);
     }
+
+
+
+
+    function add_eval($data)
+    {
+        return $this->db->insert('evaluate', $data);
+    }
     /*
     function add_detail_project($data)
     {
