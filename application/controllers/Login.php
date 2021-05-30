@@ -46,7 +46,7 @@ class Login extends CI_Controller
 
         $this->form_validation->set_rules('uname', 'Username', 'required|trim');
         $this->form_validation->set_rules('pwd', 'Password', 'required|trim');
-        $this->form_validation->set_rules('type', 'Type', 'required');
+        //$this->form_validation->set_rules('type', 'Type', 'required');
 
 
         if ($this->form_validation->run() == FALSE) { //if not input
@@ -54,30 +54,23 @@ class Login extends CI_Controller
             redirect(".");
         } else { //if input
             //echo "True";
-            $getdata = $this->ld->userpass($_POST['type'], $_POST['uname'], $_POST['pwd']); //get records
+            $getdata = $this->ld->userpass("std", $_POST['uname'], $_POST['pwd']); //get records std
             //echo count($getdata);
-            if (count($getdata) > 0) { //check has data
-
-                if ($_POST['type'] == 'adm') {
-
-                    //$_SESSION['user_uname'] = $getdata[0]->user_uname;
-                    //$_SESSION['user_role'] = $getdata[0]->user_role;
-
+            if (count($getdata) > 0) { //Have in Student
+                $_SESSION['user'] = $getdata[0]->student_id;
+                $_SESSION['role'] = 'std';
+                $_SESSION['name'] = $getdata[0]->student_FName;
+                $_SESSION['date'] = $getdata[0]->student_Start;
+            } else { // If Not In Student Find in Admin
+                $getdata = $this->ld->userpass("adm", $_POST['uname'], $_POST['pwd']);
+                if (count($getdata) > 0) {
                     $_SESSION['user'] = $getdata[0]->users_name;
                     $_SESSION['role'] = $getdata[0]->users_role_name;
                     $_SESSION['name'] = $getdata[0]->users_FLName;
-                } else {
-
-
-                    $_SESSION['user'] = $getdata[0]->student_id;
-                    $_SESSION['role'] = 'std';
-                    $_SESSION['name'] = $getdata[0]->student_FName;
-                    $_SESSION['date'] = $getdata[0]->student_Start;
                 }
-                //session section regist
-                //$_SESSION['user_uname'] = $getdata[0]->user_uname;
-                //$_SESSION['user_role'] = $getdata[0]->user_role;
+            }
 
+            if (count($getdata) > 0) { //Have data
                 $time = $_SERVER['REQUEST_TIME'];
                 $timeout_duration = 600;
 
@@ -97,12 +90,7 @@ class Login extends CI_Controller
                 } else {
                     redirect("adminconsole");
                 }
-
-
-                //"Student"
             } else { // no data
-
-
                 $data['wrong'] = true;
 
                 $this->load->view('header');
@@ -110,7 +98,6 @@ class Login extends CI_Controller
                 $this->load->view('html_login', $data);
                 $this->load->view('bottom');
             }
-
 
             //$this->load->view('formsuccess');
         }
