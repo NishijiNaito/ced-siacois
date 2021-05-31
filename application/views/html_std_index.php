@@ -33,7 +33,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         <div class="row">
                             <div class="col-sm-6">
 
-                                <h5 class="card-title">รายละเอียด</h5>
+                                <h5 class="card-title text-center">รายละเอียด</h5>
                                 <?php
 
 
@@ -53,14 +53,24 @@ defined('BASEPATH') or exit('No direct script access allowed');
                             </div>
                             <div class="col-sm-6">
 
-                                <h5 class="card-title">นักศึกษา</h5>
+                                <h5 class="card-title text-center">นักศึกษา</h5>
                                 <a href="<?php echo current_url(); ?>/leaverequest">
-                                    <p class="card-text">ข้อมูลการลา/การออกใบลา</p>
+                                    <div class="row justify-content-center">
+                                        <span style="font-size: 48px; color: Dodgerblue;">
+                                            <i class="fa fa-sticky-note" aria-hidden="true"></i>
+                                        </span>
+                                    </div>
+                                    <p class="card-text text-center">ข้อมูลการลา/การออกใบลา</p>
                                 </a>
-                                <?php  if($date->dateremain <=10 && $eval){ ?>
-                                <a href="<?php echo current_url(); ?>/evaluate">
-                                    <p class="card-text">ประเมินการฝึกงาน</p>
-                                </a>
+                                <?php if ($date->dateremain <= 10 && $eval) { ?>
+                                    <a href="<?php echo current_url(); ?>/evaluate">
+                                        <div class="row justify-content-center">
+                                            <span style="font-size: 48px; color: Dodgerblue;">
+                                                <i class="fa fa-tasks" aria-hidden="true"></i>
+                                            </span>
+                                        </div>
+                                        <p class="card-text text-center">ประเมินการฝึกงาน</p>
+                                    </a>
                                 <?php } ?>
                             </div>
                         </div>
